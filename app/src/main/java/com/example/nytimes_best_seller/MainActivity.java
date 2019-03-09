@@ -22,20 +22,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final TextView textView = findViewById(R.id.textView);
+
+        final TextView amazonUrl = findViewById(R.id.textView);
+
+        //Setting up the API call using retrofit
+
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl("https://api.nytimes.com/svc/books/v3/")
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
-        NewYorkTimesAPI client = retrofit.create(NewYorkTimesAPI.class);
+        NewYorkTimesAPI client = retrofit.create(NewYorkTimesAPI.class);   //using an Interface to make API call
         Call<ServerResponse> serverCall = client.getServerInfo();
+
+        //Actually making the call
+
         serverCall.enqueue(new Callback<ServerResponse>() {
+
+            //getting a response
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_LONG).show();
-                textView.setText(response.body().getResults().get(4).getAmazonProductUrl());
+                amazonUrl.setText(response.body().getResults().get(4).getAmazonProductUrl());
             }
 
+            //No response (invalid URL/call)
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "fail", Toast.LENGTH_LONG).show();
