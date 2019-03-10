@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         buyBook.setVisibility(View.INVISIBLE);
 
         //Setting up the API call using retrofit
+
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl("https://api.nytimes.com/svc/books/v3/")
                 .addConverterFactory(GsonConverterFactory.create());
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_LONG).show();
                 amazonProductURL = response.body().getResults().get(4).getAmazonProductUrl();
+
                 amazonUrl.setText(amazonProductURL);
                 buyBook.setVisibility(View.VISIBLE);
 
@@ -79,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
 
 
 
