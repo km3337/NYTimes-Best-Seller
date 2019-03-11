@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">NYTimes-Best-Seller</string>
     <string name="title_activity_amazon_buy_book">AmazonBuyBook</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -2,6 +2,8 @@ package com.example.nytimes_best_seller;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,15 +23,20 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity {
 
     String amazonProductURL;
+
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        viewPager =  findViewById(R.id.pager);
+        SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager());
 
+        viewPager.setAdapter(swipeAdapter);
         final TextView amazonUrl = findViewById(R.id.textView);
         final Button buyBook = findViewById(R.id.button_id);
         buyBook.setVisibility(View.INVISIBLE);
