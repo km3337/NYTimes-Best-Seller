@@ -19,7 +19,7 @@ import android.widget.TextView;
  * Use the {@link PageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PageFragment extends Fragment {
+public class PageFragment extends android.support.v4.app.Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -56,18 +56,20 @@ public class PageFragment extends Fragment {
 
 
 
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_page,container,false);
         Bundle bundle = getArguments();
-        String bookNumber = bundle.getString("book_number");
+        String bookNumber = Integer.toString(bundle.getInt("book_number"));
         Log.wtf("Book Number","BookNumber: "+ bookNumber);
 
+        TextView tv = v.findViewById(R.id.HelloWorlds);
         tv.setText(bookNumber);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_page, container, false);
+        return v;
     }
 
 

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -33,13 +34,17 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewPager =  findViewById(R.id.pager);
-        SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager());
 
+        viewPager = findViewById(R.id.pager);
+        Log.wtf("View Pager", (String)viewPager.getTag());
+        SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager());
         viewPager.setAdapter(swipeAdapter);
-        final TextView amazonUrl = findViewById(R.id.textView);
-        final Button buyBook = findViewById(R.id.button_id);
-        buyBook.setVisibility(View.INVISIBLE);
+
+
+//        final TextView amazonUrl = findViewById(R.id.textView);
+//        final Button buyBook = findViewById(R.id.button_id);
+//        final Button flip = findViewById(R.id.button_flip);
+//        buyBook.setVisibility(View.INVISIBLE);
 
         //Setting up the API call using retrofit
 
@@ -50,33 +55,39 @@ public class MainActivity extends FragmentActivity {
         NewYorkTimesAPI client = retrofit.create(NewYorkTimesAPI.class);   //using an Interface to make API call
         Call<ServerResponse> serverCall = client.getServerInfo();
 
-        //Actually making the call
+//        flip.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                viewPager.setCurrentItem(1);
+//            }
+//        });
 
-        serverCall.enqueue(new Callback<ServerResponse>() {
-
-            //getting a response
-            @Override
-            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_LONG).show();
-                amazonProductURL = response.body().getResults().get(4).getAmazonProductUrl();
-
-                amazonUrl.setText(amazonProductURL);
-                buyBook.setVisibility(View.VISIBLE);
-
-                buyBook.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        openProductPage(amazonProductURL);
-                    }
-                });
-            }
-
-            //No response (invalid URL/call)
-            @Override
-            public void onFailure(Call<ServerResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "fail", Toast.LENGTH_LONG).show();
-            }
-        });
+//        //Actually making the call
+//        serverCall.enqueue(new Callback<ServerResponse>() {
+//
+//            //getting a response
+//            @Override
+//            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+//                Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_LONG).show();
+//                amazonProductURL = response.body().getResults().get(4).getAmazonProductUrl();
+//
+//                amazonUrl.setText(amazonProductURL);
+//                buyBook.setVisibility(View.VISIBLE);
+//
+//                buyBook.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        openProductPage(amazonProductURL);
+//                    }
+//                });
+//            }
+//
+//            //No response (invalid URL/call)
+//            @Override
+//            public void onFailure(Call<ServerResponse> call, Throwable t) {
+//                Toast.makeText(MainActivity.this, "fail", Toast.LENGTH_LONG).show();
+//            }
+//        });
 
 
     }
