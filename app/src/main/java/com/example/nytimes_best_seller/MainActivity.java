@@ -40,13 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(MainActivity.this,"Loading Books", Toast.LENGTH_LONG).show();
 
-        //Setting up the API call using retrofit
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://api.nytimes.com/svc/books/v3/")
-                .addConverterFactory(GsonConverterFactory.create());
-        Retrofit retrofit = builder.build();
-        NewYorkTimesAPI client = retrofit.create(NewYorkTimesAPI.class);   //using an Interface to make API call
-        Call<ServerResponse> serverCall = client.getServerInfo();
+
+        Call<ServerResponse> serverCall = buildServerCall();
+
 
         //Actually making the call
         serverCall.enqueue(new Callback<ServerResponse>() {
@@ -57,31 +53,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_LONG).show();
                 booklist.refreshBookList ( response.body () );
                 booklist.setItemListener ( MainActivity.this, response.body () );
-//                // Create a message handling object as an anonymous class.
-//               AdapterView.OnItemClickListener messageClickedHandler = new AdapterView.OnItemClickListener (){
-//                    public void onItemClick(AdapterView parent, View v, int position, long id) {
-//                        // Do something in response to the click
-//                        openProductPage ( response.body ().getResults ().get ( position ).getAmazonProductUrl () );
-//                        Log.wtf ( "Called","OpenProductPage was called" );
-//                    }
-//                };
-////
-//                bookListView.setOnItemClickListener(messageClickedHandler);
-
-//                amazonProductURLS.add("3");
-//                adapter.notifyDataSetChanged();
-//                amazonProductURL = response.body().getResults().get(4).getAmazonProductUrl();
-
-//                amazonUrl.setText(amazonProductURL);
-//                buyBook.setVisibility(View.VISIBLE);
-//
-//                bookListView.setOnClickListener (  ).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        openProductPage(amazonProductURL);
-//                    }
-//                });
-
 
             }
 
@@ -95,13 +66,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void openProductPage(String url){
-        Uri webpage = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-        if(intent.resolveActivity(getPackageManager()) != null){
-            startActivity(intent);
-        }
+    //Setting up the API call using retrofit
+    public Call<ServerResponse> buildServerCall(){
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl("https://api.nytimes.com/svc/books/v3/")
+                .addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.build();
+        NewYorkTimesAPI client = retrofit.create(NewYorkTimesAPI.class);   //using an Interface to make API call
+        Call<ServerResponse> serverCall = client.getServerInfo();
+        return serverCall;
+
     }
+
 
 
 

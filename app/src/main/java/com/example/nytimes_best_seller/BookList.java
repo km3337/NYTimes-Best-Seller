@@ -39,14 +39,6 @@ public class BookList {
         adapter.notifyDataSetChanged ();
     }
 
-    public void openProductPage(final Context context, String url){
-        Uri webpage = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-        Log.wtf ( "openProductPage", "Opening product page");
-        if(intent.resolveActivity(context.getPackageManager()) != null){
-            context.startActivity(intent);
-        }
-    }
 
     public void setItemListener(final Context context, final ServerResponse serverResponse){
         AdapterView.OnItemClickListener messageClickedHandler = new AdapterView.OnItemClickListener (){
@@ -59,6 +51,16 @@ public class BookList {
 //
         bookListView.setOnItemClickListener(messageClickedHandler);
     }
+
+    private void openProductPage(final Context context, String url){
+        Uri webpage = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        Log.wtf ( "openProductPage", "Opening product page");
+        if(intent.resolveActivity(context.getPackageManager()) != null){
+            context.startActivity(intent);
+        }
+    }
+
 
 
 }
