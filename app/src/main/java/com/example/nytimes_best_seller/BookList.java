@@ -30,7 +30,8 @@ public class BookList {
         bookListView.setAdapter(adapter);
     }
 
-    public void updateBookList(final ServerResponse serverResponse){
+    public void refreshBookList(final ServerResponse serverResponse){
+        bookTitles.clear();
         int numResults = serverResponse.getNumResults ();
         for(int i = 0;i < numResults;i++ ){
             bookTitles.add(serverResponse.getResults().get (i).getBookDetails ().get ( 0 ).getTitle ());

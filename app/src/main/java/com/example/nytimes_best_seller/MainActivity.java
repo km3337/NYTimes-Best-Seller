@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ServerResponse> call, final Response<ServerResponse> response) {
                 Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_LONG).show();
-                booklist.updateBookList ( response.body () );
+                booklist.refreshBookList ( response.body () );
                 booklist.setItemListener ( MainActivity.this, response.body () );
 //                // Create a message handling object as an anonymous class.
 //               AdapterView.OnItemClickListener messageClickedHandler = new AdapterView.OnItemClickListener (){
