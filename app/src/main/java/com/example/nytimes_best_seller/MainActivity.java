@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -33,23 +35,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ListView bookListView = findViewById(R.id.list_view);
-        final ArrayList<String> amazonProductURLS = new ArrayList<String>(5);
-        amazonProductURLS.add("Item1");
-        amazonProductURLS.add("2");
-
-
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.book_item,amazonProductURLS);
-        bookListView.setAdapter(adapter);
-
+        final ListView bookListView = findViewById(R.id.list_view);
+        final BookList booklist = new BookList ( this, bookListView );
 
         Toast.makeText(MainActivity.this,"Loading Books", Toast.LENGTH_LONG).show();
-//        final TextView amazonUrl = findViewById(R.id.textView);
-//        final Button buyBook = findViewById(R.id.button_id);
-//        buyBook.setVisibility(View.INVISIBLE);
 
         //Setting up the API call using retrofit
-
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl("https://api.nytimes.com/svc/books/v3/")
                 .addConverterFactory(GsonConverterFactory.create());
@@ -58,21 +49,33 @@ public class MainActivity extends AppCompatActivity {
         Call<ServerResponse> serverCall = client.getServerInfo();
 
         //Actually making the call
-
         serverCall.enqueue(new Callback<ServerResponse>() {
 
             //getting a response
             @Override
-            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+            public void onResponse(Call<ServerResponse> call, final Response<ServerResponse> response) {
                 Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_LONG).show();
-                amazonProductURLS.add("3");
-                adapter.notifyDataSetChanged();
+                booklist.updateBookList ( response.body () );
+                booklist.setItemListener ( MainActivity.this, response.body () );
+//                // Create a message handling object as an anonymous class.
+//               AdapterView.OnItemClickListener messageClickedHandler = new AdapterView.OnItemClickListener (){
+//                    public void onItemClick(AdapterView parent, View v, int position, long id) {
+//                        // Do something in response to the click
+//                        openProductPage ( response.body ().getResults ().get ( position ).getAmazonProductUrl () );
+//                        Log.wtf ( "Called","OpenProductPage was called" );
+//                    }
+//                };
+////
+//                bookListView.setOnItemClickListener(messageClickedHandler);
+
+//                amazonProductURLS.add("3");
+//                adapter.notifyDataSetChanged();
 //                amazonProductURL = response.body().getResults().get(4).getAmazonProductUrl();
 
 //                amazonUrl.setText(amazonProductURL);
 //                buyBook.setVisibility(View.VISIBLE);
 //
-//                buyBook.setOnClickListener(new View.OnClickListener() {
+//                bookListView.setOnClickListener (  ).setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View view) {
 //                        openProductPage(amazonProductURL);
