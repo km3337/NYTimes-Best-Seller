@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.nytimes_best_seller.API.Model.ResultsItem;
 import com.example.nytimes_best_seller.API.Model.ServerResponse;
 
 import java.util.ArrayList;
@@ -44,12 +45,21 @@ public class BookList {
         AdapterView.OnItemClickListener messageClickedHandler = new AdapterView.OnItemClickListener (){
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 // Do something in response to the click
-                openProductPage ( context,serverResponse.getResults ().get ( position ).getAmazonProductUrl () );
+                ResultsItem resultsItem = serverResponse.getResults().get(position);
+                startDetails(v, context, resultsItem);
+
                 Log.wtf ( "Called","OpenProductPage was called" );
             }
         };
 //
         bookListView.setOnItemClickListener(messageClickedHandler);
+    }
+
+    public void startDetails(View v, Context context, ResultsItem resultsItem) {/*, BookDetailsItem bookDetailsItem){*/
+        Intent intent = new Intent(context, BookDetailsActivity.class);
+        intent.putExtra("productURL", resultsItem.getAmazonProductUrl());
+
+        context.startActivity(intent);
     }
 
     private void openProductPage(final Context context, String url){
