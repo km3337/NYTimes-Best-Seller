@@ -42,14 +42,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:padding="16sp"
-            android:text="10 weeks on list" />
+            tools:text="10 weeks on list" />
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16sp"
             android:layout_below="@+id/weeks_on_list"
-            android:text="Book Title"/>
+            tools:text="Book Title"/>
 
         <TextView
             android:id="@+id/author"
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:padding="16sp"
             android:layout_below="@+id/title"
-            android:text="Author Name"/>
+            tools:text="Author Name"/>
 
         <TextView
             android:id="@+id/description"
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:padding="16sp"
             android:layout_below="@+id/author"
-            android:text="This is a book description for a book on the new york times best seller list."/>
+            tools:text="This is a book description for a book on the new york times best seller list."/>
 
         <Button
             android:id="@+id/buy_button"

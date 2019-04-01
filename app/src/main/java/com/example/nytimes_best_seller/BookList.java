@@ -55,22 +55,15 @@ public class BookList {
         bookListView.setOnItemClickListener(messageClickedHandler);
     }
 
-    public void startDetails(View v, Context context, ResultsItem resultsItem) {/*, BookDetailsItem bookDetailsItem){*/
+    public void startDetails(View v, Context context, ResultsItem resultsItem) {
         Intent intent = new Intent(context, BookDetailsActivity.class);
         intent.putExtra("productURL", resultsItem.getAmazonProductUrl());
-
+        intent.putExtra("rank", resultsItem.getRank());
+        intent.putExtra("title", resultsItem.getBookDetails().get(0).getTitle());
+        intent.putExtra("weeksOnList", resultsItem.getWeeksOnList());
+        intent.putExtra("author", resultsItem.getBookDetails().get(0).getAuthor());
+        intent.putExtra("description", resultsItem.getBookDetails().get(0).getDescription());
         context.startActivity(intent);
     }
-
-    private void openProductPage(final Context context, String url){
-        Uri webpage = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-        Log.wtf ( "openProductPage", "Opening product page");
-        if(intent.resolveActivity(context.getPackageManager()) != null){
-            context.startActivity(intent);
-        }
-    }
-
-
 
 }
