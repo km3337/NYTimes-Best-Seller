@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view){
                         booklist.sort ();
+                        PopupMenu popupSortMenu = new PopupMenu(MainActivity.this, sort);
+                        popupSortMenu.getMenuInflater().inflate(R.menu.popup_sort_menu,popupSortMenu.getMenu());
+                        popupSortMenu.show();
                     }
                 });
 
