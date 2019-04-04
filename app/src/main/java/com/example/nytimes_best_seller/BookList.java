@@ -14,6 +14,8 @@ import com.example.nytimes_best_seller.API.Model.ResultsItem;
 import com.example.nytimes_best_seller.API.Model.ServerResponse;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by Foster Brown on 3/13/2019.
@@ -23,10 +25,11 @@ public class BookList {
     ListView bookListView;
     ArrayList<String> bookTitles;
     final ArrayAdapter<String> adapter;
-
+    ArrayList<Book> books;
     public BookList(final Context context, ListView listOfBooks){
         this.bookListView = listOfBooks;
         bookTitles = new ArrayList<String>();
+        books = new ArrayList<Book>();
         adapter = new ArrayAdapter<String>(context, R.layout.book_item, bookTitles);
         bookListView.setAdapter(adapter);
     }
@@ -35,7 +38,10 @@ public class BookList {
         bookTitles.clear();
         int numResults = serverResponse.getNumResults ();
         for(int i = 0;i < numResults;i++ ){
-            bookTitles.add(serverResponse.getResults().get (i).getBookDetails ().get ( 0 ).getTitle ());
+            //bookTitles.add(serverResponse.getResults().get (i).getBookDetails ().get ( 0 ).getTitle ());
+            books.add ( new Book ( serverResponse.getResults().get (i).getBookDetails ().get ( 0 ).getTitle (),
+                    serverResponse.getResults ().get ( i ).getWeeksOnList ()) );
+            bookTitles.add(books.get ( i ).name);
         }
         adapter.notifyDataSetChanged ();
     }
@@ -55,6 +61,17 @@ public class BookList {
         bookListView.setOnItemClickListener(messageClickedHandler);
     }
 
+    public void sort(){
+        Collections.sort ( books, new SortByWeeks ());
+        bookTitles.clear();
+        for(int i = 0;i<15;i++){
+            Log.wtf ( "Book", books.get ( i ).name + " " + Integer.toString (  books.get ( i ).weeksOnList));
+            bookTitles.add(books.get ( i ).name);
+        }
+        adapter.notifyDataSetChanged ();
+
+    }
+
     public void startDetails(View v, Context context, ResultsItem resultsItem) {/*, BookDetailsItem bookDetailsItem){*/
         Intent intent = new Intent(context, BookDetailsActivity.class);
         intent.putExtra("productURL", resultsItem.getAmazonProductUrl());
@@ -62,15 +79,30 @@ public class BookList {
         context.startActivity(intent);
     }
 
-    private void openProductPage(final Context context, String url){
-        Uri webpage = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-        Log.wtf ( "openProductPage", "Opening product page");
-        if(intent.resolveActivity(context.getPackageManager()) != null){
-            context.startActivity(intent);
+    private void openProductPage(final Context context, String url) {
+        Uri webpage = Uri.parse ( url );
+        Intent intent = new Intent ( Intent.ACTION_VIEW, webpage );
+        Log.wtf ( "openProductPage", "Opening product page" );
+        if (intent.resolveActivity ( context.getPackageManager ( ) ) != null) {
+            context.startActivity ( intent );
         }
     }
 
 
+}
+
+class Book{
+    String name;
+    int weeksOnList;
+    public Book(String name,int weeksOnList){
+        this.name = name;
+        this.weeksOnList = weeksOnList;
+    }
+}
+
+class SortByWeeks implements Comparator<Book> {
+    public int compare(Book a,Book b){
+        return a.weeksOnList - b.weeksOnList;
+    }
 
 }

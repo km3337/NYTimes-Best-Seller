@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="sort"
+        android:id="@+id/sort"/>
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"

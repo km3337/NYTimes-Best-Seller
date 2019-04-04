@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final ListView bookListView = findViewById(R.id.list_view);
         final BookList booklist = new BookList ( this, bookListView );
+        final Button sort = findViewById ( R.id.sort );
 
         Toast.makeText(MainActivity.this,"Loading Books", Toast.LENGTH_LONG).show();
 
@@ -53,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_LONG).show();
                 booklist.refreshBookList ( response.body () );
                 booklist.setItemListener ( MainActivity.this, response.body () );
+
+                sort.setOnClickListener ( new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        booklist.sort ();
+                    }
+                });
 
             }
 
