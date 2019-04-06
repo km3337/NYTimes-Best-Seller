@@ -51,7 +51,7 @@ public class BookList {
                 Log.wtf ( "Called","OpenProductPage was called" );
             }
         };
-//
+
         bookListView.setOnItemClickListener(messageClickedHandler);
     }
 
