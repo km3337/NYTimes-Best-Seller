@@ -21,6 +21,14 @@
             tools:text="1"
             tools:textSize="40sp" />
 
+        <TextView
+            android:id="@+id/rankDelta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16sp"
+            android:layout_below="@+id/rank_number"
+            tools:text="Book Title"/>
+
         <ImageView
             android:id="@+id/book_cover"
             android:layout_width="120dp"

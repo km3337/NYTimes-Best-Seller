@@ -59,6 +59,7 @@ public class BookList {
         Intent intent = new Intent(context, BookDetailsActivity.class);
         intent.putExtra("productURL", resultsItem.getAmazonProductUrl());
         intent.putExtra("rank", resultsItem.getRank());
+        intent.putExtra("ranklastweek", resultsItem.getRankLastWeek());
         intent.putExtra("title", resultsItem.getBookDetails().get(0).getTitle());
         intent.putExtra("weeksOnList", resultsItem.getWeeksOnList());
         intent.putExtra("author", resultsItem.getBookDetails().get(0).getAuthor());
