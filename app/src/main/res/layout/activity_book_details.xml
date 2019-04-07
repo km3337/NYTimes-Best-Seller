@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:padding="16sp"
             android:layout_below="@+id/rank_number"
-            tools:text="Book Title"/>
+            tools:text=" change in rank since last week (+/-/~)"/>
 
         <ImageView
             android:id="@+id/book_cover"
