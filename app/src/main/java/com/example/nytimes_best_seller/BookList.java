@@ -26,6 +26,8 @@ public class BookList {
     ArrayList<String> bookTitles;
     final ArrayAdapter<String> adapter;
     ArrayList<Book> books;
+    final int NUMBOOKS = 15;
+
     public BookList(final Context context, ListView listOfBooks){
         this.bookListView = listOfBooks;
         bookTitles = new ArrayList<String>();
@@ -34,10 +36,12 @@ public class BookList {
         bookListView.setAdapter(adapter);
     }
 
-    public void refreshBookList(final ServerResponse serverResponse){
+    // Refreshes BookList with new books from API
+    public void initializeBookList(final ServerResponse serverResponse){
         bookTitles.clear();
         int numResults = serverResponse.getNumResults ();
         for(int i = 0;i < numResults;i++ ){
+            Log.wtf("taf", Integer.toString(numResults));
             //bookTitles.add(serverResponse.getResults().get (i).getBookDetails ().get ( 0 ).getTitle ());
             books.add ( new Book ( serverResponse.getResults().get (i).getBookDetails ().get ( 0 ).getTitle (),
                     serverResponse.getResults ().get ( i ).getWeeksOnList ()) );
@@ -46,7 +50,7 @@ public class BookList {
         adapter.notifyDataSetChanged ();
     }
 
-
+    // Directs each list item to it's book details page
     public void setItemListener(final Context context, final ServerResponse serverResponse){
         AdapterView.OnItemClickListener messageClickedHandler = new AdapterView.OnItemClickListener (){
             public void onItemClick(AdapterView parent, View v, int position, long id) {
@@ -57,18 +61,17 @@ public class BookList {
                 Log.wtf ( "Called","OpenProductPage was called" );
             }
         };
-//
         bookListView.setOnItemClickListener(messageClickedHandler);
     }
 
-    public void sort(){
-        Collections.sort ( books, new SortByWeeks ());
-        bookTitles.clear();
-        for(int i = 0;i<15;i++){
-            Log.wtf ( "Book", books.get ( i ).name + " " + Integer.toString (  books.get ( i ).weeksOnList));
-            bookTitles.add(books.get ( i ).name);
+    //Sorts books
+    public void sort(String flag){
+        switch(flag){
+            case("bwa") : Collections.sort ( books, new SortByWeeksAscending ());break;
+            case("bwd") : Collections.sort ( books, new SortByWeeksDescending ());break;
         }
-        adapter.notifyDataSetChanged ();
+        refresh();
+
 
     }
 
@@ -79,18 +82,22 @@ public class BookList {
         context.startActivity(intent);
     }
 
-    private void openProductPage(final Context context, String url) {
-        Uri webpage = Uri.parse ( url );
-        Intent intent = new Intent ( Intent.ACTION_VIEW, webpage );
-        Log.wtf ( "openProductPage", "Opening product page" );
-        if (intent.resolveActivity ( context.getPackageManager ( ) ) != null) {
-            context.startActivity ( intent );
+
+    //Resets array to be updated
+    private void refresh(){
+        bookTitles.clear();
+        for(int i = 0;i<NUMBOOKS;i++){
+            Log.wtf ( "Book", books.get ( i ).name + " " + Integer.toString (  books.get ( i ).weeksOnList));
+            bookTitles.add(books.get ( i ).name);
         }
+        adapter.notifyDataSetChanged ();
     }
 
 
 }
 
+
+//Book class that links attributes we want to sort by
 class Book{
     String name;
     int weeksOnList;
@@ -100,9 +107,13 @@ class Book{
     }
 }
 
-class SortByWeeks implements Comparator<Book> {
+class SortByWeeksAscending implements Comparator<Book> {
     public int compare(Book a,Book b){
         return a.weeksOnList - b.weeksOnList;
     }
-
+}
+class SortByWeeksDescending implements Comparator<Book> {
+    public int compare(Book a,Book b){
+        return b.weeksOnList - a.weeksOnList;
+    }
 }

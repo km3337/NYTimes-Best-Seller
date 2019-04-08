@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,14 +32,15 @@ public class MainActivity extends AppCompatActivity {
 
     String amazonProductURL;
     ListView bookListView;
-
+    Button sort;
+    BookList booklist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final ListView bookListView = findViewById(R.id.list_view);
-        final BookList booklist = new BookList ( this, bookListView );
-        final Button sort = findViewById ( R.id.sort );
+        booklist = new BookList ( this, bookListView );
+        sort = findViewById ( R.id.sort );
 
         Toast.makeText(MainActivity.this,"Loading Books", Toast.LENGTH_LONG).show();
 
@@ -53,18 +55,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ServerResponse> call, final Response<ServerResponse> response) {
                 Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_LONG).show();
-                booklist.refreshBookList ( response.body () );
+                booklist.initializeBookList ( response.body () );
                 booklist.setItemListener ( MainActivity.this, response.body () );
-
                 sort.setOnClickListener ( new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
-                        booklist.sort ();
-                        PopupMenu popupSortMenu = new PopupMenu(MainActivity.this, sort);
-                        popupSortMenu.getMenuInflater().inflate(R.menu.popup_sort_menu,popupSortMenu.getMenu());
-                        popupSortMenu.show();
+                        showPopup();
                     }
                 });
+
 
             }
 
@@ -88,6 +87,25 @@ public class MainActivity extends AppCompatActivity {
         Call<ServerResponse> serverCall = client.getServerInfo();
         return serverCall;
 
+    }
+
+
+    public void showPopup(){
+        PopupMenu popupSortMenu = new PopupMenu(MainActivity.this, sort);
+        popupSortMenu.getMenuInflater().inflate(R.menu.popup_sort_menu,popupSortMenu.getMenu());
+        popupSortMenu.show();
+        popupSortMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Log.wtf("tag", menuItem.toString());
+                switch(menuItem.toString()){
+                    case("By Week-Ascending") : booklist.sort("bwa");break;
+                    case("By Week-Descending") : booklist.sort("bwd");break;
+//                    case("") : booklist.sort();break;
+                }
+                return true;
+            }
+        });
     }
 
 

@@ -4,11 +4,11 @@
     android:layout_height="wrap_content">
 
     <item
-        android:id="@+id/one"
-        android:title="One" />
+        android:id="@+id/oldest_newest"
+        android:title="By Week-Ascending" />
     <item
-        android:id="@+id/two"
-        android:title="Two"/>
+        android:id="@+id/newest-oldest"
+        android:title="By Week-Descending"/>
     <item
         android:id="@+id/three"
         android:title="Three"/>
