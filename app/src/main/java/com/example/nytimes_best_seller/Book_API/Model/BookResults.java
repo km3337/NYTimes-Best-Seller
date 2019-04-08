@@ -3,7 +3,7 @@ package com.example.nytimes_best_seller.Book_API.Model;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class ResultsItem{
+public class BookResults {
 
 	@SerializedName("dagger")
 	private int dagger;
@@ -12,7 +12,7 @@ public class ResultsItem{
 	private int asterisk;
 
 	@SerializedName("book_details")
-	private List<BookDetailsItem> bookDetails;
+	private List<BookDetails> bookDetails;
 
 	@SerializedName("list_name")
 	private String listName;
@@ -54,11 +54,11 @@ public class ResultsItem{
 		return asterisk;
 	}
 
-	public void setBookDetails(List<BookDetailsItem> bookDetails){
+	public void setBookDetails(List<BookDetails> bookDetails){
 		this.bookDetails = bookDetails;
 	}
 
-	public List<BookDetailsItem> getBookDetails(){
+	public List<BookDetails> getBookDetails(){
 		return bookDetails;
 	}
 
@@ -129,7 +129,7 @@ public class ResultsItem{
 	@Override
  	public String toString(){
 		return 
-			"ResultsItem{" +
+			"BookResults{" +
 			",dagger = '" + dagger + '\'' + 
 			",asterisk = '" + asterisk + '\'' + 
 			",book_details = '" + bookDetails + '\'' + 

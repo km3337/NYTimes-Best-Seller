@@ -2,7 +2,7 @@ package com.example.nytimes_best_seller.Book_API.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class BookDetailsItem{
+public class BookDetails {
 
 	@SerializedName("contributor_note")
 	private String contributorNote;
@@ -117,7 +117,7 @@ public class BookDetailsItem{
 	@Override
  	public String toString(){
 		return 
-			"BookDetailsItem{" + 
+			"BookDetails{" +
 			"contributor_note = '" + contributorNote + '\'' + 
 			",contributor = '" + contributor + '\'' + 
 			",author = '" + author + '\'' + 

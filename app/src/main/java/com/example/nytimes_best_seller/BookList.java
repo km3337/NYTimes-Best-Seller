@@ -2,16 +2,14 @@ package com.example.nytimes_best_seller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.nytimes_best_seller.API.Model.ResultsItem;
-import com.example.nytimes_best_seller.API.Model.ServerResponse;
+import com.example.nytimes_best_seller.Book_API.Model.BookResults;
+import com.example.nytimes_best_seller.Book_API.Model.BooksResponse;
 
 import java.util.ArrayList;
 
@@ -31,7 +29,7 @@ public class BookList {
         bookListView.setAdapter(adapter);
     }
 
-    public void refreshBookList(final ServerResponse serverResponse){
+    public void refreshBookList(final BooksResponse serverResponse){
         bookTitles.clear();
         int numResults = serverResponse.getNumResults ();
         for(int i = 0;i < numResults;i++ ){
@@ -41,11 +39,11 @@ public class BookList {
     }
 
 
-    public void setItemListener(final Context context, final ServerResponse serverResponse){
+    public void setItemListener(final Context context, final BooksResponse serverResponse){
         AdapterView.OnItemClickListener messageClickedHandler = new AdapterView.OnItemClickListener (){
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 // Do something in response to the click
-                ResultsItem resultsItem = serverResponse.getResults().get(position);
+                BookResults resultsItem = serverResponse.getResults().get(position);
                 startDetails(v, context, resultsItem);
 
                 Log.wtf ( "Called","OpenProductPage was called" );
@@ -55,7 +53,7 @@ public class BookList {
         bookListView.setOnItemClickListener(messageClickedHandler);
     }
 
-    public void startDetails(View v, Context context, ResultsItem resultsItem) {
+    public void startDetails(View v, Context context, BookResults resultsItem) {
         Intent intent = new Intent(context, BookDetailsActivity.class);
         intent.putExtra("productURL", resultsItem.getAmazonProductUrl());
         intent.putExtra("rank", resultsItem.getRank());
