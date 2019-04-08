@@ -1,9 +1,9 @@
-package com.example.nytimes_best_seller.API.Model;
+package com.example.nytimes_best_seller.Book_API.Model;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class ServerResponse{
+public class BooksResponse {
 
 	@SerializedName("copyright")
 	private String copyright;
@@ -12,7 +12,7 @@ public class ServerResponse{
 	private String lastModified;
 
 	@SerializedName("results")
-	private List<ResultsItem> results;
+	private List<BookResults> results;
 
 	@SerializedName("num_results")
 	private int numResults;
@@ -20,40 +20,20 @@ public class ServerResponse{
 	@SerializedName("status")
 	private String status;
 
-	public void setCopyright(String copyright){
-		this.copyright = copyright;
-	}
-
 	public String getCopyright(){
 		return copyright;
-	}
-
-	public void setLastModified(String lastModified){
-		this.lastModified = lastModified;
 	}
 
 	public String getLastModified(){
 		return lastModified;
 	}
 
-	public void setResults(List<ResultsItem> results){
-		this.results = results;
-	}
-
-	public List<ResultsItem> getResults(){
+	public List<BookResults> getResults(){
 		return results;
-	}
-
-	public void setNumResults(int numResults){
-		this.numResults = numResults;
 	}
 
 	public int getNumResults(){
 		return numResults;
-	}
-
-	public void setStatus(String status){
-		this.status = status;
 	}
 
 	public String getStatus(){
@@ -63,7 +43,7 @@ public class ServerResponse{
 	@Override
  	public String toString(){
 		return 
-			"ServerResponse{" + 
+			"BooksResponse{" +
 			"copyright = '" + copyright + '\'' + 
 			",last_modified = '" + lastModified + '\'' + 
 			",results = '" + results + '\'' + 

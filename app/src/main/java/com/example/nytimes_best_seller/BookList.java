@@ -2,16 +2,14 @@ package com.example.nytimes_best_seller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.nytimes_best_seller.API.Model.ResultsItem;
-import com.example.nytimes_best_seller.API.Model.ServerResponse;
+import com.example.nytimes_best_seller.Book_API.Model.BookResults;
+import com.example.nytimes_best_seller.Book_API.Model.BooksResponse;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,8 +34,7 @@ public class BookList {
         bookListView.setAdapter(adapter);
     }
 
-    // Refreshes BookList with new books from API
-    public void initializeBookList(final ServerResponse serverResponse){
+    public void initializeBookList(final BooksResponse serverResponse){
         bookTitles.clear();
         int numResults = serverResponse.getNumResults ();
         for(int i = 0;i < numResults;i++ ){
@@ -50,12 +47,11 @@ public class BookList {
         adapter.notifyDataSetChanged ();
     }
 
-    // Directs each list item to it's book details page
-    public void setItemListener(final Context context, final ServerResponse serverResponse){
+    public void setItemListener(final Context context, final BooksResponse serverResponse){
         AdapterView.OnItemClickListener messageClickedHandler = new AdapterView.OnItemClickListener (){
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 // Do something in response to the click
-                ResultsItem resultsItem = serverResponse.getResults().get(position);
+                BookResults resultsItem = serverResponse.getResults().get(position);
                 startDetails(v, context, resultsItem);
 
                 Log.wtf ( "Called","OpenProductPage was called" );
@@ -75,10 +71,15 @@ public class BookList {
 
     }
 
-    public void startDetails(View v, Context context, ResultsItem resultsItem) {/*, BookDetailsItem bookDetailsItem){*/
+    public void startDetails(View v, Context context, BookResults resultsItem) {
         Intent intent = new Intent(context, BookDetailsActivity.class);
         intent.putExtra("productURL", resultsItem.getAmazonProductUrl());
-
+        intent.putExtra("rank", resultsItem.getRank());
+        intent.putExtra("ranklastweek", resultsItem.getRankLastWeek());
+        intent.putExtra("title", resultsItem.getBookDetails().get(0).getTitle());
+        intent.putExtra("weeksOnList", resultsItem.getWeeksOnList());
+        intent.putExtra("author", resultsItem.getBookDetails().get(0).getAuthor());
+        intent.putExtra("description", resultsItem.getBookDetails().get(0).getDescription());
         context.startActivity(intent);
     }
 

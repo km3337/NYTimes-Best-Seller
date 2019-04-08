@@ -1,7 +1,5 @@
 package com.example.nytimes_best_seller;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,12 +13,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.nytimes_best_seller.API.Model.ServerResponse;
-import com.example.nytimes_best_seller.API.Service.NewYorkTimesAPI;
-
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
+import com.example.nytimes_best_seller.Book_API.Model.BooksResponse;
+import com.example.nytimes_best_seller.Book_API.Service.BooksAPI;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,15 +39,14 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this,"Loading Books", Toast.LENGTH_LONG).show();
 
 
-        Call<ServerResponse> serverCall = buildServerCall();
-
+        Call<BooksResponse> serverCall = buildServerCall();
 
         //Actually making the call
-        serverCall.enqueue(new Callback<ServerResponse>() {
+        serverCall.enqueue(new Callback<BooksResponse>() {
 
             //getting a response
             @Override
-            public void onResponse(Call<ServerResponse> call, final Response<ServerResponse> response) {
+            public void onResponse(Call<BooksResponse> call, final Response<BooksResponse> response) {
                 Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_LONG).show();
                 booklist.initializeBookList ( response.body () );
                 booklist.setItemListener ( MainActivity.this, response.body () );
@@ -69,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
             //No response (invalid URL/call)
             @Override
-            public void onFailure(Call<ServerResponse> call, Throwable t) {
+            public void onFailure(Call<BooksResponse> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "fail", Toast.LENGTH_LONG).show();
             }
         });
@@ -78,17 +71,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Setting up the API call using retrofit
-    public Call<ServerResponse> buildServerCall(){
+    public Call<BooksResponse> buildServerCall(){
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl("https://api.nytimes.com/svc/books/v3/")
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
-        NewYorkTimesAPI client = retrofit.create(NewYorkTimesAPI.class);   //using an Interface to make API call
-        Call<ServerResponse> serverCall = client.getServerInfo();
+        BooksAPI client = retrofit.create(BooksAPI.class);   //using an Interface to make API call
+        Call<BooksResponse> serverCall = client.getServerInfo();
         return serverCall;
 
     }
-
 
     public void showPopup(){
         PopupMenu popupSortMenu = new PopupMenu(MainActivity.this, sort);
@@ -101,16 +93,9 @@ public class MainActivity extends AppCompatActivity {
                 switch(menuItem.toString()){
                     case("By Week-Ascending") : booklist.sort("bwa");break;
                     case("By Week-Descending") : booklist.sort("bwd");break;
-//                    case("") : booklist.sort();break;
                 }
                 return true;
             }
         });
     }
-
-
-
-
-
-
 }

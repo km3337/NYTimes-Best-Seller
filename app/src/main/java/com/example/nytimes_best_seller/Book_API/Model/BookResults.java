@@ -1,12 +1,9 @@
-package com.example.nytimes_best_seller.API.Model;
+package com.example.nytimes_best_seller.Book_API.Model;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class ResultsItem{
-
-	@SerializedName("isbns")
-	private List<IsbnsItem> isbns;
+public class BookResults {
 
 	@SerializedName("dagger")
 	private int dagger;
@@ -15,7 +12,7 @@ public class ResultsItem{
 	private int asterisk;
 
 	@SerializedName("book_details")
-	private List<BookDetailsItem> bookDetails;
+	private List<BookDetails> bookDetails;
 
 	@SerializedName("list_name")
 	private String listName;
@@ -32,9 +29,6 @@ public class ResultsItem{
 	@SerializedName("amazon_product_url")
 	private String amazonProductUrl;
 
-	@SerializedName("reviews")
-	private List<ReviewsItem> reviews;
-
 	@SerializedName("rank")
 	private int rank;
 
@@ -44,104 +38,44 @@ public class ResultsItem{
 	@SerializedName("rank_last_week")
 	private int rankLastWeek;
 
-	public void setIsbns(List<IsbnsItem> isbns){
-		this.isbns = isbns;
-	}
-
-	public List<IsbnsItem> getIsbns(){
-		return isbns;
-	}
-
-	public void setDagger(int dagger){
-		this.dagger = dagger;
-	}
-
 	public int getDagger(){
 		return dagger;
-	}
-
-	public void setAsterisk(int asterisk){
-		this.asterisk = asterisk;
 	}
 
 	public int getAsterisk(){
 		return asterisk;
 	}
 
-	public void setBookDetails(List<BookDetailsItem> bookDetails){
-		this.bookDetails = bookDetails;
-	}
-
-	public List<BookDetailsItem> getBookDetails(){
+	public List<BookDetails> getBookDetails(){
 		return bookDetails;
-	}
-
-	public void setListName(String listName){
-		this.listName = listName;
 	}
 
 	public String getListName(){
 		return listName;
 	}
 
-	public void setDisplayName(String displayName){
-		this.displayName = displayName;
-	}
-
 	public String getDisplayName(){
 		return displayName;
-	}
-
-	public void setWeeksOnList(int weeksOnList){
-		this.weeksOnList = weeksOnList;
 	}
 
 	public int getWeeksOnList(){
 		return weeksOnList;
 	}
 
-	public void setBestsellersDate(String bestsellersDate){
-		this.bestsellersDate = bestsellersDate;
-	}
-
 	public String getBestsellersDate(){
 		return bestsellersDate;
-	}
-
-	public void setAmazonProductUrl(String amazonProductUrl){
-		this.amazonProductUrl = amazonProductUrl;
 	}
 
 	public String getAmazonProductUrl(){
 		return amazonProductUrl;
 	}
 
-	public void setReviews(List<ReviewsItem> reviews){
-		this.reviews = reviews;
-	}
-
-	public List<ReviewsItem> getReviews(){
-		return reviews;
-	}
-
-	public void setRank(int rank){
-		this.rank = rank;
-	}
-
 	public int getRank(){
 		return rank;
 	}
 
-	public void setPublishedDate(String publishedDate){
-		this.publishedDate = publishedDate;
-	}
-
 	public String getPublishedDate(){
 		return publishedDate;
-	}
-
-	public void setRankLastWeek(int rankLastWeek){
-		this.rankLastWeek = rankLastWeek;
 	}
 
 	public int getRankLastWeek(){
@@ -151,8 +85,7 @@ public class ResultsItem{
 	@Override
  	public String toString(){
 		return 
-			"ResultsItem{" + 
-			"isbns = '" + isbns + '\'' + 
+			"BookResults{" +
 			",dagger = '" + dagger + '\'' + 
 			",asterisk = '" + asterisk + '\'' + 
 			",book_details = '" + bookDetails + '\'' + 
@@ -160,8 +93,7 @@ public class ResultsItem{
 			",display_name = '" + displayName + '\'' + 
 			",weeks_on_list = '" + weeksOnList + '\'' + 
 			",bestsellers_date = '" + bestsellersDate + '\'' + 
-			",amazon_product_url = '" + amazonProductUrl + '\'' + 
-			",reviews = '" + reviews + '\'' + 
+			",amazon_product_url = '" + amazonProductUrl + '\'' +
 			",rank = '" + rank + '\'' + 
 			",published_date = '" + publishedDate + '\'' + 
 			",rank_last_week = '" + rankLastWeek + '\'' + 

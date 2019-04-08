@@ -9,8 +9,5 @@
     <item
         android:id="@+id/newest-oldest"
         android:title="By Week-Descending"/>
-    <item
-        android:id="@+id/three"
-        android:title="Three"/>
 </menu>
 
