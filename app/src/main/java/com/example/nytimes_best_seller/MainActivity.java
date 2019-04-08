@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
         Call<BooksResponse> serverCall = buildServerCall();
 
-
         //Actually making the call
         serverCall.enqueue(new Callback<BooksResponse>() {
 
@@ -65,10 +64,4 @@ public class MainActivity extends AppCompatActivity {
         return serverCall;
 
     }
-
-
-
-
-
-
 }

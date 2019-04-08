@@ -38,88 +38,44 @@ public class BookResults {
 	@SerializedName("rank_last_week")
 	private int rankLastWeek;
 
-	public void setDagger(int dagger){
-		this.dagger = dagger;
-	}
-
 	public int getDagger(){
 		return dagger;
-	}
-
-	public void setAsterisk(int asterisk){
-		this.asterisk = asterisk;
 	}
 
 	public int getAsterisk(){
 		return asterisk;
 	}
 
-	public void setBookDetails(List<BookDetails> bookDetails){
-		this.bookDetails = bookDetails;
-	}
-
 	public List<BookDetails> getBookDetails(){
 		return bookDetails;
-	}
-
-	public void setListName(String listName){
-		this.listName = listName;
 	}
 
 	public String getListName(){
 		return listName;
 	}
 
-	public void setDisplayName(String displayName){
-		this.displayName = displayName;
-	}
-
 	public String getDisplayName(){
 		return displayName;
-	}
-
-	public void setWeeksOnList(int weeksOnList){
-		this.weeksOnList = weeksOnList;
 	}
 
 	public int getWeeksOnList(){
 		return weeksOnList;
 	}
 
-	public void setBestsellersDate(String bestsellersDate){
-		this.bestsellersDate = bestsellersDate;
-	}
-
 	public String getBestsellersDate(){
 		return bestsellersDate;
-	}
-
-	public void setAmazonProductUrl(String amazonProductUrl){
-		this.amazonProductUrl = amazonProductUrl;
 	}
 
 	public String getAmazonProductUrl(){
 		return amazonProductUrl;
 	}
 
-	public void setRank(int rank){
-		this.rank = rank;
-	}
-
 	public int getRank(){
 		return rank;
 	}
 
-	public void setPublishedDate(String publishedDate){
-		this.publishedDate = publishedDate;
-	}
-
 	public String getPublishedDate(){
 		return publishedDate;
-	}
-
-	public void setRankLastWeek(int rankLastWeek){
-		this.rankLastWeek = rankLastWeek;
 	}
 
 	public int getRankLastWeek(){
