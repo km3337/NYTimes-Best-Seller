@@ -1,12 +1,9 @@
-package com.example.nytimes_best_seller.API.Model;
+package com.example.nytimes_best_seller.Book_API.Model;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 public class ResultsItem{
-
-	@SerializedName("isbns")
-	private List<IsbnsItem> isbns;
 
 	@SerializedName("dagger")
 	private int dagger;
@@ -32,9 +29,6 @@ public class ResultsItem{
 	@SerializedName("amazon_product_url")
 	private String amazonProductUrl;
 
-	@SerializedName("reviews")
-	private List<ReviewsItem> reviews;
-
 	@SerializedName("rank")
 	private int rank;
 
@@ -43,14 +37,6 @@ public class ResultsItem{
 
 	@SerializedName("rank_last_week")
 	private int rankLastWeek;
-
-	public void setIsbns(List<IsbnsItem> isbns){
-		this.isbns = isbns;
-	}
-
-	public List<IsbnsItem> getIsbns(){
-		return isbns;
-	}
 
 	public void setDagger(int dagger){
 		this.dagger = dagger;
@@ -116,14 +102,6 @@ public class ResultsItem{
 		return amazonProductUrl;
 	}
 
-	public void setReviews(List<ReviewsItem> reviews){
-		this.reviews = reviews;
-	}
-
-	public List<ReviewsItem> getReviews(){
-		return reviews;
-	}
-
 	public void setRank(int rank){
 		this.rank = rank;
 	}
@@ -151,8 +129,7 @@ public class ResultsItem{
 	@Override
  	public String toString(){
 		return 
-			"ResultsItem{" + 
-			"isbns = '" + isbns + '\'' + 
+			"ResultsItem{" +
 			",dagger = '" + dagger + '\'' + 
 			",asterisk = '" + asterisk + '\'' + 
 			",book_details = '" + bookDetails + '\'' + 
@@ -160,8 +137,7 @@ public class ResultsItem{
 			",display_name = '" + displayName + '\'' + 
 			",weeks_on_list = '" + weeksOnList + '\'' + 
 			",bestsellers_date = '" + bestsellersDate + '\'' + 
-			",amazon_product_url = '" + amazonProductUrl + '\'' + 
-			",reviews = '" + reviews + '\'' + 
+			",amazon_product_url = '" + amazonProductUrl + '\'' +
 			",rank = '" + rank + '\'' + 
 			",published_date = '" + publishedDate + '\'' + 
 			",rank_last_week = '" + rankLastWeek + '\'' + 

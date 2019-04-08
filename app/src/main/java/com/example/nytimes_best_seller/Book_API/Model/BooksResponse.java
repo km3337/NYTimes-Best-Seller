@@ -1,4 +1,4 @@
-package com.example.nytimes_best_seller.API.Model;
+package com.example.nytimes_best_seller.Book_API.Model;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
