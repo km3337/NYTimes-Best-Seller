@@ -1,17 +1,43 @@
 package com.example.nytimes_best_seller;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.HttpAuthHandler;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.gson.JsonParser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 
 
 public class BookDetailsActivity extends AppCompatActivity {
-
+    JsonParser jsonparser = new JsonParser();
+    TextView tv;
+    String ab = "";
+    JSONObject jobj = null;
+    JSONArray jobjArr = null;
+    String link = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +88,45 @@ public class BookDetailsActivity extends AppCompatActivity {
         delta = getDelta + " change in rank since last week " + "(" + dSymbol + ")";
         rankDeltaTextView.setText(delta);
 
+
+
+
+        class retrievedata extends AsyncTask<String, String, String> {
+
+            @Override
+            protected String doInBackground(String... arg0) {
+                // TODO Auto-generated method stub
+                ab = makeServiceCall("https://www.googleapis.com/books/v1/volumes?q=isbn:" + getIntent().getStringExtra("isbn"));
+                Log.wtf("json",ab);
+                if (ab != null) {
+                    try {
+                        jobj = new JSONObject(ab);
+                        jobjArr = jobj.getJSONArray("items");
+                        jobj = jobjArr.getJSONObject(0).getJSONObject("volumeInfo");
+                        jobj = jobj.getJSONObject("imageLinks");
+                        link = jobj.getString("smallThumbnail");
+                        Log.wtf("abc",link);
+                        return link;
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+
+                    }
+                }
+                return "No String ";
+            }
+            protected void onPostExecute(String ab){
+
+                new DownloadImageTask((ImageView) findViewById(R.id.book_cover))
+                        .execute(link);
+            }
+
+        }
+        new retrievedata().execute();
+
+//        new DownloadImageTask((ImageView) findViewById(R.id.book_cover))
+//                .execute("https://books.google.com/books/content?id=i_3PuAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api");
+
     }
 
     public void openProductPage(View view) {
@@ -80,4 +145,80 @@ public class BookDetailsActivity extends AppCompatActivity {
         }
         return word.toString();
     }
+
+
+    public String makeServiceCall(String reqUrl) {
+        String response = null;
+        try {
+            URL url = new URL(reqUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            // read the response
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+            response = convertStreamToString(in);
+        } catch (MalformedURLException e) {
+            Log.e("bookimage", "MalformedURLException: " + e.getMessage());
+        } catch (ProtocolException e) {
+            Log.e("bookimage", "ProtocolException: " + e.getMessage());
+        } catch (IOException e) {
+            Log.e("bookimage", "IOException: " + e.getMessage());
+        } catch (Exception e) {
+            Log.e("bookimage", "Exception: " + e.getMessage());
+        }
+        return response;
+    }
+
+
+    private String convertStreamToString(InputStream is) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+
+        String line;
+        try {
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append('\n');
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return sb.toString();
+    }
+
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.wtf("Url", urldisplay.toString());
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+
+
 }
+
