@@ -75,14 +75,15 @@
             android:layout_below="@+id/author"
             tools:text="This is a book description for a book on the new york times best seller list."/>
 
-        <Button
+        <ImageButton
             android:id="@+id/buy_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:layout_below="@id/description"
             android:text="Buy"
-            android:onClick="openProductPage"/>
+            android:onClick="openProductPage"
+            android:src="@drawable/amzn" />
 
     </RelativeLayout>
 

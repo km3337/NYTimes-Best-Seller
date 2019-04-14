@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 
@@ -17,7 +18,7 @@ public class BookDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
 
-        final Button buyButton = findViewById(R.id.buy_button);
+        final ImageButton buyButton = findViewById(R.id.buy_button);
         buyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 openProductPage(v);
