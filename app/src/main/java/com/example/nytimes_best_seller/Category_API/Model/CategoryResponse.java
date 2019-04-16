@@ -1,11 +1,20 @@
 package com.example.nytimes_best_seller.Category_API.Model;
 
 import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 public class CategoryResponse{
+
+	@SerializedName("copyright")
 	private String copyright;
+
+	@SerializedName("results")
 	private List<CategoryDetails> results;
+
+	@SerializedName("num_results")
 	private int numResults;
+
+	@SerializedName("status")
 	private String status;
 
 	public String getCopyright(){

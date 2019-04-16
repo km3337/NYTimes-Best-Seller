@@ -1,11 +1,25 @@
 package com.example.nytimes_best_seller.Category_API.Model;
 
-public class CategoryDetails {
+import com.google.gson.annotations.SerializedName;
+
+public class CategoryDetails{
+
+	@SerializedName("newest_published_date")
 	private String newestPublishedDate;
+
+	@SerializedName("oldest_published_date")
 	private String oldestPublishedDate;
+
+	@SerializedName("list_name")
 	private String listName;
+
+	@SerializedName("list_name_encoded")
 	private String listNameEncoded;
+
+	@SerializedName("display_name")
 	private String displayName;
+
+	@SerializedName("updated")
 	private String updated;
 
 	public String getNewestPublishedDate(){
@@ -35,7 +49,7 @@ public class CategoryDetails {
 	@Override
  	public String toString(){
 		return 
-			"BookResults{" +
+			"CategoryDetails{" +
 			"newest_published_date = '" + newestPublishedDate + '\'' + 
 			",oldest_published_date = '" + oldestPublishedDate + '\'' + 
 			",list_name = '" + listName + '\'' + 
