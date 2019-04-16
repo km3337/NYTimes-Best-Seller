@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.nytimes_best_seller.Book_API.Model.BooksResponse;
 import com.example.nytimes_best_seller.Book_API.Service.BooksAPI;
+import com.example.nytimes_best_seller.Category_API.Model.CategoryResponse;
+import com.example.nytimes_best_seller.Category_API.Service.BookCategoriesAPI;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,7 +38,29 @@ public class MainActivity extends AppCompatActivity {
         booklist = new BookList ( this, bookListView );
         sort = findViewById ( R.id.sort );
 
-        Toast.makeText(MainActivity.this,"Loading Books", Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity.this,"Loading Books", Toast.LENGTH_LONG).show();
+
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl("https://api.nytimes.com/svc/books/v3/")
+                .addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.build();
+        BookCategoriesAPI client = retrofit.create(BookCategoriesAPI.class);   //using an Interface to make API call
+        Call<CategoryResponse> categoryServerCall = client.getCategoryInfo();
+
+        categoryServerCall.enqueue(new Callback<CategoryResponse>() {
+            @Override
+            public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
+              //  Toast.makeText(MainActivity.this, "Categories Loaded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, response.body().getResults().get(0).getListName(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<CategoryResponse> call, Throwable t) {
+
+            }
+        });
+
+
 
 
         Call<BooksResponse> serverCall = buildServerCall();
@@ -47,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             //getting a response
             @Override
             public void onResponse(Call<BooksResponse> call, final Response<BooksResponse> response) {
-                Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_LONG).show();
+              // Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_LONG).show();
                 booklist.initializeBookList ( response.body () );
                 booklist.setItemListener ( MainActivity.this, response.body () );
                 sort.setOnClickListener ( new View.OnClickListener(){
