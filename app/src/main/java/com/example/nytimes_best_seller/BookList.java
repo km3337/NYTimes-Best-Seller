@@ -31,7 +31,7 @@ public class BookList {
     public BookList(final Context context, ListView listOfBooks){
         this.bookListView = listOfBooks;
         bookTitles = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(context, R.layout.book_item, bookTitles);
+        adapter = new ArrayAdapter<String>(context, R.layout.text_item, bookTitles);
         bookListView.setAdapter(adapter);
     }
 

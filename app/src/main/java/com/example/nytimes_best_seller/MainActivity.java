@@ -15,8 +15,11 @@ import android.widget.Toast;
 
 import com.example.nytimes_best_seller.Book_API.Model.BooksResponse;
 import com.example.nytimes_best_seller.Book_API.Service.BooksAPI;
+import com.example.nytimes_best_seller.Category_API.Model.CategoryDetails;
 import com.example.nytimes_best_seller.Category_API.Model.CategoryResponse;
 import com.example.nytimes_best_seller.Category_API.Service.BookCategoriesAPI;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,12 +33,15 @@ public class MainActivity extends AppCompatActivity {
     ListView bookListView;
     Button sort;
     BookList booklist;
+    CategoryList categoryList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final ListView bookListView = findViewById(R.id.list_view);
-        booklist = new BookList ( this, bookListView );
+       // booklist = new BookList ( this, bookListView );
+        categoryList = new CategoryList(this, bookListView);
         sort = findViewById ( R.id.sort );
 
         //Toast.makeText(MainActivity.this,"Loading Books", Toast.LENGTH_LONG).show();
@@ -50,21 +56,20 @@ public class MainActivity extends AppCompatActivity {
         categoryServerCall.enqueue(new Callback<CategoryResponse>() {
             @Override
             public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
-              //  Toast.makeText(MainActivity.this, "Categories Loaded", Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.this, response.body().getResults().get(0).getListName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Categories Loaded", Toast.LENGTH_SHORT).show();
+               // List<CategoryDetails> categoryDetailsList = response.body().getResults();
+                categoryList.initializeBookList(response.body());
             }
 
             @Override
             public void onFailure(Call<CategoryResponse> call, Throwable t) {
-
+                Toast.makeText(MainActivity.this, "Categories Failed to Load", Toast.LENGTH_SHORT).show();
             }
         });
 
 
-
-
         Call<BooksResponse> serverCall = buildServerCall();
-
+/*
         //Actually making the call
         serverCall.enqueue(new Callback<BooksResponse>() {
 
@@ -89,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<BooksResponse> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "fail", Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
 
 
     }
