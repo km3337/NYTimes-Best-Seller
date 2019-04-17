@@ -86,6 +86,7 @@ public class BookList {
         intent.putExtra("weeksOnList", resultsItem.getWeeksOnList());
         intent.putExtra("author", resultsItem.getBookDetails().get(0).getAuthor());
         intent.putExtra("description", resultsItem.getBookDetails().get(0).getDescription());
+        intent.putExtra("isbn", resultsItem.getBookDetails().get(0).getPrimaryIsbn13());
         context.startActivity(intent);
     }
 
