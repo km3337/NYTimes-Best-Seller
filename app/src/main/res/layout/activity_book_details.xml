@@ -77,8 +77,8 @@
 
         <ImageButton
             android:id="@+id/buy_button"
-            android:layout_width="177px"
-            android:layout_height="35px"
+            android:layout_width="177dp"
+            android:layout_height="35dp"
             android:padding="16dp"
             android:layout_below="@id/description"
             android:text="Buy"
