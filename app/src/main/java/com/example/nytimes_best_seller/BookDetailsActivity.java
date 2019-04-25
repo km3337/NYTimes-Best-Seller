@@ -74,19 +74,7 @@ public class BookDetailsActivity extends AppCompatActivity {
         String description = getIntent().getStringExtra("description");
         descTextView.setText(description);
 
-        String delta;
-        int D1 = getIntent().getIntExtra("ranklastweek", 0);
-        int D2 = Math.abs((D1 - rank));
-        String dSymbol;
-        if (rank < D1)
-            dSymbol = "-";
-        if (rank > D1)
-            dSymbol = "+";
-        else
-            dSymbol = "~";
-
-        String getDelta= Integer.toString(D2);
-        delta = getDelta + " change in rank since last week " + "(" + dSymbol + ")";
+        String delta = getRankDelta(rank);
         rankDeltaTextView.setText(delta);
 
 
@@ -137,6 +125,21 @@ public class BookDetailsActivity extends AppCompatActivity {
         Log.wtf("openProductPage", "Opening product page");
         startActivity(intent);
     }
+    public String getRankDelta(int rank){
+        int D1 = getIntent().getIntExtra("ranklastweek", 0);
+        int D2 = Math.abs((D1 - rank));
+        String dSymbol;
+        if (rank < D1)
+            dSymbol = "-";
+        if (rank > D1)
+            dSymbol = "+";
+        else
+            dSymbol = "~";
+
+        String getDelta= Integer.toString(D2);
+        return getDelta + " change in rank since last week " + "(" + dSymbol + ")";
+    }
+
 
     public String toTitleCase(String s){
         StringBuilder word = new StringBuilder();

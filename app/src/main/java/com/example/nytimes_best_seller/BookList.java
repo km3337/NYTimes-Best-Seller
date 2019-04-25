@@ -23,26 +23,20 @@ import java.util.List;
 public class BookList {
     ListView bookListView;
     ArrayList<String> bookTitles;
-    final ArrayAdapter<String> adapter;
+    final BookAdapter adapter;
     List<BookResults> bookResults;
     final int NUMBOOKS = 15;
 
 
     public BookList(final Context context, ListView listOfBooks){
         this.bookListView = listOfBooks;
-        bookTitles = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(context, R.layout.book_item, bookTitles);
+        bookResults = new ArrayList<>();
+        adapter = new BookAdapter(context, R.layout.book_item, bookResults);
         bookListView.setAdapter(adapter);
     }
 
     public void initializeBookList(final BooksResponse serverResponse){
-        bookTitles.clear();
-        int numResults = serverResponse.getNumResults ();
-        bookResults = serverResponse.getResults();
-        for(int i = 0;i < numResults;i++ ){
-            bookTitles.add(serverResponse.getResults().get (i).getBookDetails ().get ( 0 ).getTitle ());
-        }
-        adapter.notifyDataSetChanged ();
+        adapter.updateBookList(serverResponse, bookResults);
     }
 
     public void setItemListener(final Context context, final BooksResponse serverResponse){
@@ -63,11 +57,10 @@ public class BookList {
             case("bwd") : Collections.sort ( bookResults, new SortByWeeksDescending ());break;
         }
         refresh();
-
-
     }
 
     //Resets array to be updated
+    //TODO: figure the logic for the sorting functionality for the new list
     private void refresh(){
         bookTitles.clear();
         for(int i = 0;i<NUMBOOKS;i++){
@@ -89,10 +82,6 @@ public class BookList {
         intent.putExtra("isbn", resultsItem.getBookDetails().get(0).getPrimaryIsbn13());
         context.startActivity(intent);
     }
-
-
-
-
 
 }
 
