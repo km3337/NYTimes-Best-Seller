@@ -1,5 +1,6 @@
 package com.example.nytimes_best_seller;
 
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,7 +64,15 @@ public class MainActivity extends AppCompatActivity {
             //No response (invalid URL/call)
             @Override
             public void onFailure(Call<BooksResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "fail", Toast.LENGTH_LONG).show();
+                if (t instanceof Exception) {
+                    AlertDialog.Builder alert = new AlertDialog.Builder (MainActivity.this);
+                            alert.setTitle("Unable to reach server");
+                            alert.setMessage("Please check your internet connection");
+                            alert.setPositiveButton("OK", null);
+                            alert.show();
+
+                }
+                //Toast.makeText(MainActivity.this, "fail", Toast.LENGTH_LONG).show();
             }
         });
 
