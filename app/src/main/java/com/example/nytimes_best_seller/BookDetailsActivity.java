@@ -18,7 +18,7 @@ public class BookDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
 
-        final ImageButton buyButton = findViewById(R.id.buy_button);
+        /*final ImageButton buyButton = findViewById(R.id.buy_button);
         buyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 openProductPage(v);
@@ -61,7 +61,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         String getDelta= Integer.toString(D2);
         delta = getDelta + " change in rank since last week " + "(" + dSymbol + ")";
-        rankDeltaTextView.setText(delta);
+        rankDeltaTextView.setText(delta);*/
 
     }
 

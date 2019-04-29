@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Categories Loaded", Toast.LENGTH_SHORT).show();
                // List<CategoryDetails> categoryDetailsList = response.body().getResults();
                 categoryList.initializeBookList(response.body());
+                categoryList.setItemListener(MainActivity.this, response.body());
             }
 
             @Override
@@ -66,48 +67,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Categories Failed to Load", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-        Call<BooksResponse> serverCall = buildServerCall();
-/*
-        //Actually making the call
-        serverCall.enqueue(new Callback<BooksResponse>() {
-
-            //getting a response
-            @Override
-            public void onResponse(Call<BooksResponse> call, final Response<BooksResponse> response) {
-              // Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_LONG).show();
-                booklist.initializeBookList ( response.body () );
-                booklist.setItemListener ( MainActivity.this, response.body () );
-                sort.setOnClickListener ( new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view){
-                        showPopup();
-                    }
-                });
-
-
-            }
-
-            //No response (invalid URL/call)
-            @Override
-            public void onFailure(Call<BooksResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "fail", Toast.LENGTH_LONG).show();
-            }
-        });*/
-
-
-    }
-
-    //Setting up the API call using retrofit
-    public Call<BooksResponse> buildServerCall(){
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://api.nytimes.com/svc/books/v3/")
-                .addConverterFactory(GsonConverterFactory.create());
-        Retrofit retrofit = builder.build();
-        BooksAPI client = retrofit.create(BooksAPI.class);   //using an Interface to make API call
-        Call<BooksResponse> serverCall = client.getServerInfo();
-        return serverCall;
 
     }
 
