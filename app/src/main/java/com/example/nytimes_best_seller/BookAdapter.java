@@ -41,17 +41,17 @@ public class BookAdapter extends ArrayAdapter {
         BookResults bResults = mBookResults.get(position);
         int rank = bResults.getRank(), rankLastWeek = bResults.getRankLastWeek();
 
-        TextView rankTextView = listItem.findViewById(R.id.ranknum);
+        TextView rankTextView = listItem.findViewById(R.id.list_rank_num);
         rankTextView.setText(Integer.toString(rank));
 
-        TextView rankChangeTextView = listItem.findViewById(R.id.rankchange);
-        rankChangeTextView.setText((rankLastWeek<rank ? "+" : rankLastWeek>rank ? "-" : "~"));
+        TextView rankChangeTextView = listItem.findViewById(R.id.list_rank_change);
+        rankChangeTextView.setText((rankLastWeek<rank ? "-" : rankLastWeek>rank ? "+" : "~"));
 
-        TextView titleTextView = listItem.findViewById(R.id.book_title);
+        TextView titleTextView = listItem.findViewById(R.id.list_book_title);
         titleTextView.setText(bResults.getBookDetails().get(0).getTitle());
 
         //TODO: find out how to get book image through
-        ImageView bookCoverImageView = listItem.findViewById(R.id.book_image);
+        ImageView bookCoverImageView = listItem.findViewById(R.id.list_book_image);
 
         return listItem;
 

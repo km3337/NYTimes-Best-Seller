@@ -60,7 +60,7 @@ public class BookList {
     }
 
     //Resets array to be updated
-    //TODO: figure the logic for the sorting functionality for the new list
+    //TODO: figure the logic for the refresh functionality for the new list (i.e., not just bookTitles)
     private void refresh(){
         bookTitles.clear();
         for(int i = 0;i<NUMBOOKS;i++){

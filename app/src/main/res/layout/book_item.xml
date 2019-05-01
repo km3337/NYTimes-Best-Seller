@@ -5,7 +5,7 @@
     android:layout_height="80dp">
 
     <TextView
-        android:id="@+id/ranknum"
+        android:id="@+id/list_rank_num"
         android:layout_width="30dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
@@ -14,7 +14,7 @@
         tools:text="1" />
 
     <TextView
-        android:id="@+id/rankchange"
+        android:id="@+id/list_rank_change"
         android:layout_width="30dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
@@ -24,14 +24,14 @@
 
 
     <TextView
-        android:id="@+id/book_title"
+        android:id="@+id/list_book_title"
         android:layout_width="300dp"
         android:layout_height="80dp"
         android:layout_marginEnd="0dp"
-        android:layout_toLeftOf="@+id/book_image" />
+        android:layout_toLeftOf="@+id/list_book_image" />
 
     <ImageView
-        android:id="@+id/book_image"
+        android:id="@+id/list_book_image"
         android:layout_width="80dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"/>
