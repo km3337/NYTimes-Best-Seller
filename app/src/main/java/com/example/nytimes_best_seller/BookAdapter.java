@@ -58,12 +58,5 @@ public class BookAdapter extends ArrayAdapter {
     }
 
 
-    public void updateBookList(final BooksResponse serverResponse, List<BookResults> newList){
-        mBookResults.clear();
-        mBookResults = serverResponse.getResults();
-        mBookResults.addAll(newList);
-        this.notifyDataSetChanged();
-    }
-
 
 }

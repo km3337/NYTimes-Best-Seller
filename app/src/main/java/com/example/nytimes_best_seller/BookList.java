@@ -24,19 +24,25 @@ public class BookList {
     ListView bookListView;
     ArrayList<String> bookTitles;
     final BookAdapter adapter;
+    List<BookResults> bookListItems;
     List<BookResults> bookResults;
     final int NUMBOOKS = 15;
 
 
     public BookList(final Context context, ListView listOfBooks){
         this.bookListView = listOfBooks;
-        bookResults = new ArrayList<>();
-        adapter = new BookAdapter(context, R.layout.book_item, bookResults);
+        bookListItems = new ArrayList<>();
+        adapter = new BookAdapter(context, R.layout.book_item, bookListItems);
         bookListView.setAdapter(adapter);
     }
 
     public void initializeBookList(final BooksResponse serverResponse){
-        adapter.updateBookList(serverResponse, bookResults);
+        //adapter.updateBookList(serverResponse, bookResults);
+        bookResults = serverResponse.getResults();
+        bookListItems.addAll(bookResults);
+
+        adapter.notifyDataSetChanged();
+        Log.wtf("Count", Integer.toString(adapter.getCount()));
     }
 
     public void setItemListener(final Context context, final BooksResponse serverResponse){
@@ -62,10 +68,10 @@ public class BookList {
     //Resets array to be updated
     //TODO: figure the logic for the refresh functionality for the new list (i.e., not just bookTitles)
     private void refresh(){
-        bookTitles.clear();
+        bookListItems.clear();
         for(int i = 0;i<NUMBOOKS;i++){
             Log.wtf ( "Book", bookResults.get(i).getBookDetails().get(0).getTitle() + " " + Integer.toString (  bookResults.get(i).getRank()));
-            bookTitles.add(bookResults.get(i).getBookDetails().get(0).getTitle());
+            bookListItems.add(bookResults.get(i));
         }
         adapter.notifyDataSetChanged ();
     }
