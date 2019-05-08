@@ -1,8 +1,10 @@
 package com.example.nytimes_best_seller;
 
 import android.app.AlertDialog;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.style.BackgroundColorSpan;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;

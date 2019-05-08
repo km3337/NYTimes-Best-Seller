@@ -79,14 +79,14 @@ public class BookDetailsActivity extends AppCompatActivity {
         int D2 = Math.abs((D1 - rank));
         String dSymbol;
         if (rank < D1)
-            dSymbol = "-";
+            dSymbol = "↓";
         if (rank > D1)
-            dSymbol = "+";
+            dSymbol = "↑";
         else
             dSymbol = "~";
 
         String getDelta= Integer.toString(D2);
-        delta = getDelta + " change in rank since last week " + "(" + dSymbol + ")";
+        delta =  dSymbol;
         rankDeltaTextView.setText(delta);
 
 
