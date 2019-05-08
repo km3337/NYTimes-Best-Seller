@@ -23,32 +23,29 @@ import java.util.List;
 public class BookList {
     ListView bookListView;
     ArrayList<String> bookTitles;
-    final ArrayAdapter<String> adapter;
+    final BookAdapter adapter;
+    List<BookResults> bookListItems;
     List<BookResults> bookResults;
     final int NUMBOOKS = 15;
 
 
     public BookList(final Context context, ListView listOfBooks){
         this.bookListView = listOfBooks;
-        bookTitles = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(context, R.layout.book_item, bookTitles);
+        bookListItems = new ArrayList<>();
+        adapter = new BookAdapter(context, R.layout.book_item, bookListItems);
         bookListView.setAdapter(adapter);
     }
 
     public void initializeBookList(final BooksResponse serverResponse){
-        bookTitles.clear();
-        int numResults = serverResponse.getNumResults ();
         bookResults = serverResponse.getResults();
-        for(int i = 0;i < numResults;i++ ){
-            bookTitles.add(serverResponse.getResults().get (i).getBookDetails ().get ( 0 ).getTitle ());
-        }
-        adapter.notifyDataSetChanged ();
+        bookListItems.addAll(bookResults);
+        adapter.notifyDataSetChanged();
+        Log.wtf("Count", Integer.toString(adapter.getCount()));
     }
 
     public void setItemListener(final Context context, final BooksResponse serverResponse){
         AdapterView.OnItemClickListener messageClickedHandler = new AdapterView.OnItemClickListener (){
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                // Do something in response to the click
                 BookResults resultsItem = serverResponse.getResults().get(position);
                 startDetails(v, context, resultsItem);
             }
@@ -63,16 +60,14 @@ public class BookList {
             case("bwd") : Collections.sort ( bookResults, new SortByWeeksDescending ());break;
         }
         refresh();
-
-
     }
 
     //Resets array to be updated
     private void refresh(){
-        bookTitles.clear();
+        bookListItems.clear();
         for(int i = 0;i<NUMBOOKS;i++){
             Log.wtf ( "Book", bookResults.get(i).getBookDetails().get(0).getTitle() + " " + Integer.toString (  bookResults.get(i).getRank()));
-            bookTitles.add(bookResults.get(i).getBookDetails().get(0).getTitle());
+            bookListItems.add(bookResults.get(i));
         }
         adapter.notifyDataSetChanged ();
     }
@@ -89,10 +84,6 @@ public class BookList {
         intent.putExtra("isbn", resultsItem.getBookDetails().get(0).getPrimaryIsbn13());
         context.startActivity(intent);
     }
-
-
-
-
 
 }
 

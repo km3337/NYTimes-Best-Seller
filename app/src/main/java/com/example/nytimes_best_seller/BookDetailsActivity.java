@@ -3,6 +3,7 @@ package com.example.nytimes_best_seller;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+
+import static android.support.v4.graphics.ColorUtils.setAlphaComponent;
 
 
 public class BookDetailsActivity extends AppCompatActivity {
@@ -74,20 +77,9 @@ public class BookDetailsActivity extends AppCompatActivity {
         String description = getIntent().getStringExtra("description");
         descTextView.setText(description);
 
-        String delta;
-        int D1 = getIntent().getIntExtra("ranklastweek", 0);
-        int D2 = Math.abs((D1 - rank));
-        String dSymbol;
-        if (rank < D1)
-            dSymbol = "↓";
-        if (rank > D1)
-            dSymbol = "↑";
-        else
-            dSymbol = "~";
-
-        String getDelta= Integer.toString(D2);
-        delta =  dSymbol;
+        String delta = getRankDelta(rank);
         rankDeltaTextView.setText(delta);
+        rankDeltaTextView.setTextColor(getColor(rank, getIntent().getIntExtra("weeksOnList", 0)));
 
 
 
@@ -137,6 +129,45 @@ public class BookDetailsActivity extends AppCompatActivity {
         Log.wtf("openProductPage", "Opening product page");
         startActivity(intent);
     }
+    public String getRankDelta(int rank) {
+        int D1 = getIntent().getIntExtra("ranklastweek", 0);
+        int D2 = Math.abs((D1 - rank));
+        String delta = Integer.toString(D2), dSymbol, output = "";
+        if (getIntent().getIntExtra("weeksOnList", 0) > 1) {
+            if (rank < D1) {
+                dSymbol = getString(R.string.up);
+            }
+            else if (rank > D1) {
+                dSymbol = getString(R.string.down);
+            } else {
+                dSymbol = getString(R.string.nochg);
+                return dSymbol + " no change since last week";
+            }
+            output = dSymbol + " by " + delta + " since last week";
+            return output;
+        } else return getString(R.string.nochg) + " first week on list";
+    }
+
+    public int getColor(int rank, int weeksOnList){
+        int color, alpha = 150;
+        int rankLastWeek = getIntent().getIntExtra("ranklastweek", 0);
+        if(weeksOnList > 1) {
+            if (rankLastWeek < rank) {
+                color = setAlphaComponent(Color.RED, alpha);
+            }
+            else if (rankLastWeek > rank) {
+                color = setAlphaComponent(Color.GREEN, alpha);
+            }
+            else {
+                color = setAlphaComponent(Color.BLUE, alpha);
+            }
+        }
+        else {
+            color = setAlphaComponent(Color.BLUE, alpha);
+        }
+        return color;
+    }
+
 
     public String toTitleCase(String s){
         StringBuilder word = new StringBuilder();
