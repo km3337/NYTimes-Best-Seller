@@ -1,4 +1,7 @@
 <resources>
-    <string name="app_name">NYTimes-Best-Seller</string>
+    <string name="app_name">Best Selling Books</string>
     <string name="title_activity_amazon_buy_book">AmazonBuyBook</string>
+    <string name="up">"\u25B2"</string>
+    <string name="down">"\u25BC</string>
+    <string name="nochg">\u25A0</string>
 </resources>

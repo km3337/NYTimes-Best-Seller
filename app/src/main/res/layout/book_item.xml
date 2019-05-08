@@ -6,33 +6,39 @@
 
     <TextView
         android:id="@+id/list_rank_num"
-        android:layout_width="30dp"
+        android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:padding="8dp"
         android:textSize="20sp"
-        tools:text="1" />
+        android:textAlignment="center"
+        tools:text="10" />
 
     <TextView
         android:id="@+id/list_rank_change"
-        android:layout_width="30dp"
+        android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:padding="8dp"
-        android:textSize="20sp"
-        tools:text="+" />
+        android:textSize="14sp"
+        android:textAlignment="center"
+        tools:text= "@string/up" />
 
 
     <TextView
         android:id="@+id/list_book_title"
-        android:layout_width="300dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="0dp"
-        android:layout_toLeftOf="@+id/list_book_image" />
+        android:layout_width="291dp"
+        android:layout_height="match_parent"
+        android:textSize="18sp"
+        android:padding="20dp"
+        android:textAlignment="viewStart"
+        android:layout_toLeftOf="@+id/list_book_image"
+        tools:text="Book Title With Rank"/>
 
     <ImageView
         android:id="@+id/list_book_image"
-        android:layout_width="80dp"
+        android:layout_width="79dp"
         android:layout_height="match_parent"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+         />
 </RelativeLayout>

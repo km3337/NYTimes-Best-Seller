@@ -1,6 +1,7 @@
 package com.example.nytimes_best_seller;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.widget.ArrayAdapter;
 import android.support.annotation.LayoutRes;
@@ -39,16 +40,50 @@ public class BookAdapter extends ArrayAdapter {
             listItem = LayoutInflater.from(mContext).inflate(R.layout.book_item, parent, false);
         }
         BookResults bResults = mBookResults.get(position);
-        int rank = bResults.getRank(), rankLastWeek = bResults.getRankLastWeek();
+        int     rank = bResults.getRank(),
+                rankLastWeek = bResults.getRankLastWeek(),
+                weeksOnList = bResults.getWeeksOnList();
+
+        String  noChange = mContext.getResources().getString(R.string.nochg),
+                up = mContext.getResources().getString(R.string.up),
+                down = mContext.getResources().getString(R.string.down);
 
         TextView rankTextView = listItem.findViewById(R.id.list_rank_num);
         rankTextView.setText(Integer.toString(rank));
 
         TextView rankChangeTextView = listItem.findViewById(R.id.list_rank_change);
-        rankChangeTextView.setText((rankLastWeek<rank ? "-" : rankLastWeek>rank ? "+" : "~"));
+        String rc;
+        int color;
+        if(weeksOnList > 1) {
+            if (rankLastWeek < rank) {
+                rc = down;
+                color = R.color.dnColor;
+            }
+            else if (rankLastWeek > rank) {
+                rc = up;
+                color = R.color.upColor;
+            }
+            else {
+                rc = noChange;
+                color = R.color.noChgColor;
+            }
+        }
+        else {
+            rc = noChange;
+            color = R.color.noChgColor;
+        }
+        rankChangeTextView.setText(rc);
+        rankChangeTextView.setTextColor(color);
 
         TextView titleTextView = listItem.findViewById(R.id.list_book_title);
-        titleTextView.setText(bResults.getBookDetails().get(0).getTitle());
+
+        String title = bResults.getBookDetails().get(0).getTitle();
+        StringBuilder word = new StringBuilder();
+        for(String str : title.toLowerCase().split(" ")){
+            word.append(str.substring(0,1).toUpperCase()).append(str.substring(1));
+            word.append(" ");
+        }
+        titleTextView.setText(word.toString());
 
         //TODO: find out how to get book image through
         ImageView bookCoverImageView = listItem.findViewById(R.id.list_book_image);

@@ -37,10 +37,8 @@ public class BookList {
     }
 
     public void initializeBookList(final BooksResponse serverResponse){
-        //adapter.updateBookList(serverResponse, bookResults);
         bookResults = serverResponse.getResults();
         bookListItems.addAll(bookResults);
-
         adapter.notifyDataSetChanged();
         Log.wtf("Count", Integer.toString(adapter.getCount()));
     }
@@ -48,7 +46,6 @@ public class BookList {
     public void setItemListener(final Context context, final BooksResponse serverResponse){
         AdapterView.OnItemClickListener messageClickedHandler = new AdapterView.OnItemClickListener (){
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                // Do something in response to the click
                 BookResults resultsItem = serverResponse.getResults().get(position);
                 startDetails(v, context, resultsItem);
             }
@@ -66,7 +63,6 @@ public class BookList {
     }
 
     //Resets array to be updated
-    //TODO: figure the logic for the refresh functionality for the new list (i.e., not just bookTitles)
     private void refresh(){
         bookListItems.clear();
         for(int i = 0;i<NUMBOOKS;i++){

@@ -125,19 +125,23 @@ public class BookDetailsActivity extends AppCompatActivity {
         Log.wtf("openProductPage", "Opening product page");
         startActivity(intent);
     }
-    public String getRankDelta(int rank){
+    public String getRankDelta(int rank) {
         int D1 = getIntent().getIntExtra("ranklastweek", 0);
         int D2 = Math.abs((D1 - rank));
-        String dSymbol;
-        if (rank < D1)
-            dSymbol = "-";
-        if (rank > D1)
-            dSymbol = "+";
-        else
-            dSymbol = "~";
-
-        String getDelta= Integer.toString(D2);
-        return getDelta + " change in rank since last week " + "(" + dSymbol + ")";
+        String delta = Integer.toString(D2), dSymbol, output = "";
+        if (getIntent().getIntExtra("weeksOnList", 0) > 1) {
+            if (rank < D1) {
+                dSymbol = getString(R.string.up);
+            }
+            else if (rank > D1) {
+                dSymbol = getString(R.string.down);
+            } else {
+                dSymbol = getString(R.string.nochg);
+                return dSymbol + " no change since last week";
+            }
+            output = dSymbol + " by " + delta + " since last week";
+            return output;
+        } else return getString(R.string.nochg) + " first week on list";
     }
 
 
