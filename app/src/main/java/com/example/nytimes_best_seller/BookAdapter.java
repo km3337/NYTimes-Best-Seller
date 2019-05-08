@@ -53,24 +53,24 @@ public class BookAdapter extends ArrayAdapter {
 
         TextView rankChangeTextView = listItem.findViewById(R.id.list_rank_change);
         String rankSymbol;
-        int color;
+        int color, alpha = 150;
         if(weeksOnList > 1) {
             if (rankLastWeek < rank) {
                 rankSymbol = down;
-                color = setAlphaComponent(Color.RED, 150);
+                color = setAlphaComponent(Color.RED, alpha);
             }
             else if (rankLastWeek > rank) {
                 rankSymbol = up;
-                color = setAlphaComponent(Color.GREEN, 150);
+                color = setAlphaComponent(Color.GREEN, alpha);
             }
             else {
                 rankSymbol = noChange;
-                color = setAlphaComponent(Color.BLUE, 150);
+                color = setAlphaComponent(Color.BLUE, alpha);
             }
         }
         else {
             rankSymbol = noChange;
-            color = setAlphaComponent(Color.BLUE, 150);
+            color = setAlphaComponent(Color.BLUE, alpha);
         }
         rankChangeTextView.setText(rankSymbol);
         rankChangeTextView.setTextColor(color);
@@ -84,6 +84,9 @@ public class BookAdapter extends ArrayAdapter {
             word.append(" ");
         }
         titleTextView.setText(word.toString());
+
+        TextView authorTextView = listItem.findViewById(R.id.list_author);
+        authorTextView.setText(bResults.getBookDetails().get(0).getAuthor());
 
         //TODO: find out how to get book image through
         ImageView bookCoverImageView = listItem.findViewById(R.id.list_book_image);
