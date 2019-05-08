@@ -3,6 +3,7 @@ package com.example.nytimes_best_seller;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+
+import static android.support.v4.graphics.ColorUtils.setAlphaComponent;
 
 
 public class BookDetailsActivity extends AppCompatActivity {
@@ -76,6 +79,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         String delta = getRankDelta(rank);
         rankDeltaTextView.setText(delta);
+        rankDeltaTextView.setTextColor(getColor(rank, getIntent().getIntExtra("weeksOnList", 0)));
 
 
 
@@ -142,6 +146,26 @@ public class BookDetailsActivity extends AppCompatActivity {
             output = dSymbol + " by " + delta + " since last week";
             return output;
         } else return getString(R.string.nochg) + " first week on list";
+    }
+
+    public int getColor(int rank, int weeksOnList){
+        int color, alpha = 150;
+        int rankLastWeek = getIntent().getIntExtra("ranklastweek", 0);
+        if(weeksOnList > 1) {
+            if (rankLastWeek < rank) {
+                color = setAlphaComponent(Color.RED, alpha);
+            }
+            else if (rankLastWeek > rank) {
+                color = setAlphaComponent(Color.GREEN, alpha);
+            }
+            else {
+                color = setAlphaComponent(Color.BLUE, alpha);
+            }
+        }
+        else {
+            color = setAlphaComponent(Color.BLUE, alpha);
+        }
+        return color;
     }
 
 

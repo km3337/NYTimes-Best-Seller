@@ -18,7 +18,7 @@ import com.example.nytimes_best_seller.Book_API.Model.BooksResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import static android.support.v4.graphics.ColorUtils.setAlphaComponent;
 
 
 public class BookAdapter extends ArrayAdapter {
@@ -52,27 +52,27 @@ public class BookAdapter extends ArrayAdapter {
         rankTextView.setText(Integer.toString(rank));
 
         TextView rankChangeTextView = listItem.findViewById(R.id.list_rank_change);
-        String rc;
+        String rankSymbol;
         int color;
         if(weeksOnList > 1) {
             if (rankLastWeek < rank) {
-                rc = down;
-                color = R.color.dnColor;
+                rankSymbol = down;
+                color = setAlphaComponent(Color.RED, 150);
             }
             else if (rankLastWeek > rank) {
-                rc = up;
-                color = R.color.upColor;
+                rankSymbol = up;
+                color = setAlphaComponent(Color.GREEN, 150);
             }
             else {
-                rc = noChange;
-                color = R.color.noChgColor;
+                rankSymbol = noChange;
+                color = setAlphaComponent(Color.BLUE, 150);
             }
         }
         else {
-            rc = noChange;
-            color = R.color.noChgColor;
+            rankSymbol = noChange;
+            color = setAlphaComponent(Color.BLUE, 150);
         }
-        rankChangeTextView.setText(rc);
+        rankChangeTextView.setText(rankSymbol);
         rankChangeTextView.setTextColor(color);
 
         TextView titleTextView = listItem.findViewById(R.id.list_book_title);
