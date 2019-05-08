@@ -1,72 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".BookDetailsActivity">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/top_linear_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="230dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/rank_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             android:padding="16dp"
             tools:text="1"
             tools:textSize="40sp" />
+
+        <ImageView
+            android:id="@+id/book_cover"
+            android:layout_width="162dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            tools:src="@drawable/book_cover" />
 
         <TextView
             android:id="@+id/rankDelta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16sp"
-            android:layout_below="@+id/rank_number"
             tools:text=" change in rank since last week (+/-/~)"/>
 
-        <ImageView
-            android:id="@+id/book_cover"
-            android:layout_width="120dp"
-            android:layout_height="180dp"
-            android:layout_alignParentRight="true" />
-            <!--android:src="@drawable/book_cover" />-->
+    </LinearLayout>
 
-
-    </RelativeLayout>
-
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/middle_linear_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:layout_below="@id/top_linear_layout">
 
-        <TextView
-            android:id="@+id/weeks_on_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:padding="16sp"
-            tools:text="10 weeks on list" />
         <TextView
             android:id="@+id/title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16sp"
-            android:layout_below="@+id/weeks_on_list"
             tools:text="Book Title"/>
 
         <TextView
             android:id="@+id/author"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16sp"
             android:layout_below="@+id/title"
             tools:text="Author Name"/>
 
+        <TextView
+            android:id="@+id/weeks_on_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16sp"
+            tools:text="10 weeks on list" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/middle_linear_layout"
+        android:orientation="horizontal">
         <TextView
             android:id="@+id/description"
             android:layout_width="match_parent"
@@ -85,6 +87,6 @@
             android:onClick="openProductPage"
             android:src="@drawable/amzn" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
