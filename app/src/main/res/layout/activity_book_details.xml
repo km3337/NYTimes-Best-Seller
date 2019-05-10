@@ -39,22 +39,23 @@
         android:id="@+id/middle_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:orientation="vertical"
-        android:layout_below="@id/top_linear_layout">
+        android:layout_below="@id/top_linear_layout"
+        android:layout_marginTop="7dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Book Title"/>
+            tools:text="Book Title" />
 
         <TextView
             android:id="@+id/author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16sp"
             android:layout_below="@+id/title"
-            tools:text="Author Name"/>
+            android:padding="16sp"
+            tools:text="Author Name" />
 
         <TextView
             android:id="@+id/weeks_on_list"
@@ -65,25 +66,23 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/middle_linear_layout"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16sp"
-            android:layout_below="@+id/author"
-            tools:text="This is a book description for a book on the new york times best seller list."/>
+            tools:text="This is a book description for a book on the new york times best seller list." />
 
         <ImageButton
             android:id="@+id/buy_button"
             android:layout_width="177dp"
             android:layout_height="35dp"
-            android:padding="16dp"
             android:layout_below="@id/description"
-            android:text="Buy"
             android:onClick="openProductPage"
             android:src="@drawable/amzn" />
 
