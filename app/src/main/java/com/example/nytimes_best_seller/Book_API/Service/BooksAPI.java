@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /* This interface is used when making the API call.
    I specify all the required information in here before
@@ -14,8 +15,8 @@ import retrofit2.http.Path;
 
 public interface BooksAPI {
 
-    @GET("lists.json?list={list_name}&api-key=L9HsljIGNjG3w8GyW6DATDQklRr5TWXi")
+    @GET("lists.json?api-key=L9HsljIGNjG3w8GyW6DATDQklRr5TWXi")
     @Headers("Accept: application/json")
-    Call<BooksResponse> getServerInfo(@Path("list_name") String list_name);
+    Call<BooksResponse> getServerInfo(@Query("list") String list_name);
 
 }
