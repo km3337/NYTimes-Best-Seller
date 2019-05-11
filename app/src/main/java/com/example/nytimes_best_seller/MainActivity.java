@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
                 switch(menuItem.toString()){
                     case("By Week-Ascending") : booklist.sort("bwa");break;
                     case("By Week-Descending") : booklist.sort("bwd");break;
+                    case("By Rank-Ascending") : booklist.sort("bra");break;
+                    case("By Rank-Descending") : booklist.sort("brd");break;
                 }
                 return true;
             }

@@ -37,10 +37,10 @@ public class BookList {
     }
 
     public void initializeBookList(final BooksResponse serverResponse){
+        bookListItems.clear();
         bookResults = serverResponse.getResults();
         bookListItems.addAll(bookResults);
         adapter.notifyDataSetChanged();
-        Log.wtf("Count", Integer.toString(adapter.getCount()));
     }
 
     public void setItemListener(final Context context, final BooksResponse serverResponse){
@@ -58,6 +58,8 @@ public class BookList {
         switch(flag){
             case("bwa") : Collections.sort ( bookResults, new SortByWeeksAscending ());break;
             case("bwd") : Collections.sort ( bookResults, new SortByWeeksDescending ());break;
+            case("bra") : Collections.sort ( bookResults, new SortByRankAscending ());break;
+            case("brd") : Collections.sort ( bookResults, new SortByRankDescending ());break;
         }
         refresh();
     }
@@ -96,5 +98,17 @@ class SortByWeeksAscending implements Comparator<BookResults> {
 class SortByWeeksDescending implements Comparator<BookResults> {
     public int compare(BookResults a,BookResults b){
         return b.getWeeksOnList() - a.getWeeksOnList();
+    }
+}
+
+class SortByRankAscending implements Comparator<BookResults>{
+    public int compare(BookResults a,BookResults b){
+        return a.getRank() - b.getRank();
+    }
+}
+
+class SortByRankDescending implements Comparator<BookResults>{
+    public int compare(BookResults a,BookResults b){
+        return b.getRank() - a.getRank();
     }
 }
