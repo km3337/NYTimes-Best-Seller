@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.nytimes_best_seller.Book_API.Model.BookResults;
 import com.example.nytimes_best_seller.Book_API.Model.BooksResponse;
+import com.example.nytimes_best_seller.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +95,4 @@ public class BookAdapter extends ArrayAdapter {
         return listItem;
 
     }
-
-
-
 }

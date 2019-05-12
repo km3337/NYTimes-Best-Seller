@@ -12,9 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".BookDetailsActivity"></activity>
-        <activity android:name=".MainActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" >
+        <activity android:name=".BookListActivity"></activity>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

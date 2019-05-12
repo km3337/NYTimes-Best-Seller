@@ -55,11 +55,11 @@ public class BookDetailsActivity extends AppCompatActivity {
         });
 
         TextView    rankTextView = findViewById(R.id.rank_number),
-                    titleTextView = findViewById(R.id.title),
-                    authorTextView = findViewById(R.id.author),
-                    weeksTextView = findViewById(R.id.weeks_on_list),
-                    descTextView = findViewById(R.id.description),
-                    rankDeltaTextView = findViewById(R.id.rankDelta);
+                titleTextView = findViewById(R.id.title),
+                authorTextView = findViewById(R.id.author),
+                weeksTextView = findViewById(R.id.weeks_on_list),
+                descTextView = findViewById(R.id.description),
+                rankDeltaTextView = findViewById(R.id.rankDelta);
 
         int rank = getIntent().getIntExtra("rank", 0);
         rankTextView.setText(String.valueOf(rank));
@@ -250,7 +250,4 @@ public class BookDetailsActivity extends AppCompatActivity {
             bmImage.setImageBitmap(result);
         }
     }
-
-
 }
-
