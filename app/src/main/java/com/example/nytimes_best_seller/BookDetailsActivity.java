@@ -45,6 +45,7 @@ public class BookDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(toTitleCase(getIntent().getStringExtra("title")));
         setContentView(R.layout.activity_book_details);
 
         final ImageButton buyButton = findViewById(R.id.buy_button);
@@ -71,7 +72,9 @@ public class BookDetailsActivity extends AppCompatActivity {
         authorTextView.setText(author);
 
         String weeks = String.valueOf(getIntent().getIntExtra("weeksOnList", 0));
-        weeks += (weeks.equals("1") ? " week on list" : " weeks on list");
+        if(weeks.equals("0")) weeks = "new this week";
+        else if (weeks.equals("1")) weeks+= " week on list";
+        else weeks += " weeks on list";
         weeksTextView.setText(weeks);
 
         String description = getIntent().getStringExtra("description");
