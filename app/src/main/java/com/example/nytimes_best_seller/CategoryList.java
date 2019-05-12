@@ -6,22 +6,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.nytimes_best_seller.Book_API.Model.BookDetails;
-import com.example.nytimes_best_seller.Book_API.Model.BooksResponse;
-import com.example.nytimes_best_seller.Book_API.Service.BooksAPI;
 import com.example.nytimes_best_seller.Category_API.Model.CategoryDetails;
 import com.example.nytimes_best_seller.Category_API.Model.CategoryResponse;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CategoryList {
     ListView listofCategories;

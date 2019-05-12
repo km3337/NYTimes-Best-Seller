@@ -23,32 +23,29 @@ import java.util.List;
 public class BookList {
     ListView bookListView;
     ArrayList<String> bookTitles;
-    final ArrayAdapter<String> adapter;
+    final BookAdapter adapter;
+    List<BookResults> bookListItems;
     List<BookResults> bookResults;
     final int NUMBOOKS = 15;
 
 
     public BookList(final Context context, ListView listOfBooks){
         this.bookListView = listOfBooks;
-        bookTitles = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(context, R.layout.text_item, bookTitles);
+        bookListItems = new ArrayList<>();
+        adapter = new BookAdapter(context, R.layout.book_item, bookListItems);
         bookListView.setAdapter(adapter);
     }
 
     public void initializeBookList(final BooksResponse serverResponse){
-        bookTitles.clear();
-        int numResults = serverResponse.getNumResults ();
+        bookListItems.clear();
         bookResults = serverResponse.getResults();
-        for(int i = 0;i < numResults;i++ ){
-            bookTitles.add(serverResponse.getResults().get (i).getBookDetails ().get ( 0 ).getTitle ());
-        }
-        adapter.notifyDataSetChanged ();
+        bookListItems.addAll(bookResults);
+        adapter.notifyDataSetChanged();
     }
 
     public void setItemListener(final Context context, final BooksResponse serverResponse){
         AdapterView.OnItemClickListener messageClickedHandler = new AdapterView.OnItemClickListener (){
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                // Do something in response to the click
                 BookResults resultsItem = serverResponse.getResults().get(position);
                 startDetails(v, context, resultsItem);
             }
@@ -61,18 +58,18 @@ public class BookList {
         switch(flag){
             case("bwa") : Collections.sort ( bookResults, new SortByWeeksAscending ());break;
             case("bwd") : Collections.sort ( bookResults, new SortByWeeksDescending ());break;
+            case("bra") : Collections.sort ( bookResults, new SortByRankAscending ());break;
+            case("brd") : Collections.sort ( bookResults, new SortByRankDescending ());break;
         }
         refresh();
-
-
     }
 
     //Resets array to be updated
     private void refresh(){
-        bookTitles.clear();
+        bookListItems.clear();
         for(int i = 0;i<NUMBOOKS;i++){
             Log.wtf ( "Book", bookResults.get(i).getBookDetails().get(0).getTitle() + " " + Integer.toString (  bookResults.get(i).getRank()));
-            bookTitles.add(bookResults.get(i).getBookDetails().get(0).getTitle());
+            bookListItems.add(bookResults.get(i));
         }
         adapter.notifyDataSetChanged ();
     }
@@ -86,12 +83,9 @@ public class BookList {
         intent.putExtra("weeksOnList", resultsItem.getWeeksOnList());
         intent.putExtra("author", resultsItem.getBookDetails().get(0).getAuthor());
         intent.putExtra("description", resultsItem.getBookDetails().get(0).getDescription());
+        intent.putExtra("isbn", resultsItem.getBookDetails().get(0).getPrimaryIsbn13());
         context.startActivity(intent);
     }
-
-
-
-
 
 }
 
@@ -104,5 +98,17 @@ class SortByWeeksAscending implements Comparator<BookResults> {
 class SortByWeeksDescending implements Comparator<BookResults> {
     public int compare(BookResults a,BookResults b){
         return b.getWeeksOnList() - a.getWeeksOnList();
+    }
+}
+
+class SortByRankAscending implements Comparator<BookResults>{
+    public int compare(BookResults a,BookResults b){
+        return a.getRank() - b.getRank();
+    }
+}
+
+class SortByRankDescending implements Comparator<BookResults>{
+    public int compare(BookResults a,BookResults b){
+        return b.getRank() - a.getRank();
     }
 }

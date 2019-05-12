@@ -1,13 +1,9 @@
 package com.example.nytimes_best_seller;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.Toast;
 import android.app.AlertDialog;
-import android.graphics.Color;
+import android.support.design.button.MaterialButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.style.BackgroundColorSpan;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,7 +38,7 @@ public class BookListActivity extends AppCompatActivity {
         final ListView bookListView = findViewById(R.id.list_view);
         booklist = new BookList ( this, bookListView );
         sort = findViewById ( R.id.sort );
-        Toast.makeText(this,"Loading Books", Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Loading Books", Toast.LENGTH_SHORT).show();
         Call<BooksResponse> serverCall = buildServerCall();
 
         //Actually making the call
@@ -51,7 +47,7 @@ public class BookListActivity extends AppCompatActivity {
             //getting a response
             @Override
             public void onResponse(Call<BooksResponse> call, final Response<BooksResponse> response) {
-                Toast.makeText(BookListActivity.this, "Success", Toast.LENGTH_LONG).show();
+                Toast.makeText(BookListActivity.this, "Success", Toast.LENGTH_SHORT).show();
                 booklist.initializeBookList ( response.body () );
                 booklist.setItemListener ( BookListActivity.this, response.body () );
                 sort.setOnClickListener ( new View.OnClickListener(){
@@ -100,9 +96,13 @@ public class BookListActivity extends AppCompatActivity {
                 switch(menuItem.toString()){
                     case("By Week-Ascending") : booklist.sort("bwa");break;
                     case("By Week-Descending") : booklist.sort("bwd");break;
+                    case("By Rank-Ascending") : booklist.sort("bra");break;
+                    case("By Rank-Descending") : booklist.sort("brd");break;
                 }
                 return true;
             }
         });
     }
 }
+
+

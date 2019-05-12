@@ -4,10 +4,16 @@
     android:layout_height="wrap_content">
 
     <item
+        android:id="@+id/rank_number-des"
+        android:title="By Rank-Descending"/>
+    <item
+        android:id="@+id/rank_number-asc"
+        android:title="By Rank-Ascending"/>
+    <item
         android:id="@+id/oldest_newest"
         android:title="By Week-Ascending" />
     <item
         android:id="@+id/newest-oldest"
         android:title="By Week-Descending"/>
-</menu>
 
+</menu>
