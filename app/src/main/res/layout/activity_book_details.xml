@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            tools:src="@drawable/book_placeholder" />
+            tools:src="@drawable/book-placeholder" />
 
         <TextView
             android:id="@+id/rankDelta"
