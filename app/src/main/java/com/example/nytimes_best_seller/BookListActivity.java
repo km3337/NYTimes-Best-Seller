@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.nytimes_best_seller.Book_API.Model.BooksResponse;
 import com.example.nytimes_best_seller.Book_API.Service.BooksAPI;
+import com.example.nytimes_best_seller.Category_API.Model.CategoryDetails;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +35,7 @@ public class BookListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(getIntent().getStringExtra("category_name"));
         setContentView(R.layout.activity_book_list);
         final ListView bookListView = findViewById(R.id.list_view);
         booklist = new BookList ( this, bookListView );
