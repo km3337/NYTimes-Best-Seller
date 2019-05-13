@@ -27,7 +27,7 @@
             android:layout_width="162dp"
             android:layout_height="match_parent"
             android:layout_toEndOf="@id/rank_number"
-            tools:src="@drawable/book_cover" />
+            android:src="@drawable/book_placeholder" />
 
         <View
             android:id="@+id/vert_divider"
