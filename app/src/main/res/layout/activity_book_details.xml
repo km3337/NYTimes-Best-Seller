@@ -19,50 +19,62 @@
             tools:text="1"
             tools:textSize="40sp" />
 
+        <TextView
+            android:id="@+id/rankDelta"
+            android:layout_width="45dp"
+            android:layout_height="180dp"
+            android:padding="1sp"
+            tools:text=" change in rank since last week (+/-/~)" />
+
         <ImageView
             android:id="@+id/book_cover"
             android:layout_width="162dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
+            android:paddingTop="17dp"
+            android:contentDescription="@string/app_name"
             tools:src="@drawable/book_cover" />
-
+        <LinearLayout
+            android:layout_width="800dp"
+            android:layout_height="820dp"
+            android:orientation="vertical"
+            android:paddingTop="35dp">
         <TextView
-            android:id="@+id/rankDelta"
-            android:layout_width="match_parent"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16sp"
-            tools:text=" change in rank since last week (+/-/~)"/>
+            tools:text="Book Title" />
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            tools:text="Author Name" />
+        <TextView
+            android:id="@+id/weeks_on_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="# Weeks on List" />
+        </LinearLayout>
+
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/middle_linear_layout"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="200sp"
         android:layout_below="@id/top_linear_layout"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="7sp"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Book Title" />
-
-        <TextView
-            android:id="@+id/author"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/title"
-            android:padding="16sp"
-            tools:text="Author Name" />
-
-        <TextView
-            android:id="@+id/weeks_on_list"
+            android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16sp"
-            tools:text="10 weeks on list" />
+            android:background="@color/cardview_shadow_end_color"
+            tools:text="This is a book description for a book on the new york times best seller list." />
+
     </LinearLayout>
 
     <LinearLayout
@@ -71,19 +83,13 @@
         android:layout_below="@id/middle_linear_layout"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16sp"
-            tools:text="This is a book description for a book on the new york times best seller list." />
-
         <ImageButton
             android:id="@+id/buy_button"
             android:layout_width="177dp"
             android:layout_height="35dp"
             android:layout_below="@id/description"
             android:onClick="openProductPage"
+            android:layout_marginLeft="105dp"
             android:src="@drawable/amzn" />
 
     </LinearLayout>
