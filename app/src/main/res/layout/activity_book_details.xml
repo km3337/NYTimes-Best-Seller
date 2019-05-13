@@ -5,87 +5,148 @@
     android:layout_height="match_parent"
     tools:context=".BookDetailsActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/top_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="230dp"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/rank_number"
+            android:fontFamily="@font/pt_serif"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
             tools:text="1"
-            tools:textSize="40sp" />
+            android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/book_cover"
+            android:paddingTop="16dp"
             android:layout_width="162dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
+            android:layout_toEndOf="@id/rank_number"
             tools:src="@drawable/book_cover" />
 
-        <TextView
-            android:id="@+id/rankDelta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16sp"
-            tools:text=" change in rank since last week (+/-/~)"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/middle_linear_layout"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@id/top_linear_layout"
-        android:layout_marginTop="7dp"
-        android:orientation="vertical">
+        <View
+            android:id="@+id/vert_divider"
+            android:layout_height="fill_parent"
+            android:layout_width="2dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@id/book_cover"
+            android:background="#c0c0c0"/>
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/pt_serif"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_toEndOf="@id/book_cover"
+            android:layout_marginStart="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="16dp"
             tools:text="Book Title" />
-
         <TextView
             android:id="@+id/author"
+            android:fontFamily="@font/pt_serif"
+            android:textStyle="italic"
+            android:textSize="20sp"
+            android:layout_marginStart="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
-            android:padding="16sp"
+            android:layout_toEndOf="@id/book_cover"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
             tools:text="Author Name" />
 
         <TextView
             android:id="@+id/weeks_on_list"
+            android:fontFamily="@font/pt_serif"
+            android:textSize="15sp"
+            android:layout_marginStart="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/book_cover"
+            android:layout_below="@id/author"
             android:padding="16sp"
             tools:text="10 weeks on list" />
-    </LinearLayout>
 
-    <LinearLayout
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/middle_linear_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/middle_linear_layout"
+        android:layout_height="190dp"
+        android:layout_below="@id/top_linear_layout"
         android:orientation="vertical">
+
+        <View
+            android:id="@+id/horiz_divider"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_margin="16dp"
+            android:background="#c0c0c0"/>
+
+
+        <TextView
+            android:id="@+id/rankDelta"
+            android:fontFamily="@font/pt_serif"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/horiz_divider"
+            android:layout_margin="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            tools:text=" change in rank since last week (+/-/~)" />
 
         <TextView
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16sp"
+            android:fontFamily="@font/pt_serif"
+            android:textSize="18sp"
+            android:paddingTop="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_below="@id/rankDelta"
             tools:text="This is a book description for a book on the new york times best seller list." />
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/middle_linear_layout"
+        android:orientation="vertical">
+
 
         <ImageButton
             android:id="@+id/buy_button"
             android:layout_width="177dp"
+            android:layout_centerInParent="true"
             android:layout_height="35dp"
-            android:layout_below="@id/description"
             android:onClick="openProductPage"
             android:src="@drawable/amzn" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
