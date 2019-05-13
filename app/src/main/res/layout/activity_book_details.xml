@@ -34,26 +34,29 @@
             android:contentDescription="@string/app_name"
             tools:src="@drawable/book_cover" />
         <LinearLayout
-            android:layout_width="800dp"
-            android:layout_height="820dp"
+            android:layout_width="120dp"
+            android:layout_height="180dp"
             android:orientation="vertical"
-            android:paddingTop="35dp">
+            android:paddingTop="24dp">
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Book Title" />
+            tools:text="Book Title"
+            android:fontFamily="@font/pt_serif_bold"
+            tools:textSize="20sp"/>
         <TextView
             android:id="@+id/author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            tools:text="Author Name" />
+            tools:text="Author Name"
+            android:fontFamily="@font/pt_serif_italic"/>
         <TextView
             android:id="@+id/weeks_on_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="# Weeks on List" />
+            tools:text="# Weeks on List"
+            android:fontFamily="@font/pt_serif"/>
         </LinearLayout>
 
 
