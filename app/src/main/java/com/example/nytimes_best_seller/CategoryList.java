@@ -42,6 +42,7 @@ public class CategoryList {
                 // Do something in response to the click
                 Intent intent = new Intent(context, BookListActivity.class);
                 intent.putExtra("list_name", serverResponse.getResults().get(position).getListNameEncoded());
+                intent.putExtra("category_name", serverResponse.getResults().get(position).getListName());
                 context.startActivity(intent);
             }
         };
