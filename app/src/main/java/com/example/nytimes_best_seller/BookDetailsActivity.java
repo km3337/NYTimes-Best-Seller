@@ -55,6 +55,8 @@ public class BookDetailsActivity extends AppCompatActivity {
             }
         });
 
+        //linking objects and values from the API calls to the layout views created
+        // in the XML files so that they show on the screen
         TextView    rankTextView = findViewById(R.id.rank_number),
                 titleTextView = findViewById(R.id.title),
                 authorTextView = findViewById(R.id.author),
@@ -72,6 +74,7 @@ public class BookDetailsActivity extends AppCompatActivity {
         authorTextView.setText(author);
 
         String weeks = String.valueOf(getIntent().getIntExtra("weeksOnList", 0));
+        //minor logic for number of weeks on the list
         if(weeks.equals("0")) weeks = "new this week";
         else if (weeks.equals("1")) weeks+= " week on list";
         else weeks += " weeks on list";
@@ -86,6 +89,9 @@ public class BookDetailsActivity extends AppCompatActivity {
 
 
 
+        // inner class for Google Books API calls
+        // creates the necessary json object from the isbn retrieved from the NYT API
+        // and downloads the image for the book cover from Google Books
 
         class retrievedata extends AsyncTask<String, String, String> {
 
@@ -120,11 +126,9 @@ public class BookDetailsActivity extends AppCompatActivity {
         }
         new retrievedata().execute();
 
-//        new DownloadImageTask((ImageView) findViewById(R.id.book_cover))
-//                .execute("https://books.google.com/books/content?id=i_3PuAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api");
-
     }
 
+    //takes the url from api call, turns it into a string and is used to open amazon product page for each book
     public void openProductPage(View view) {
         String url = getIntent().getStringExtra("productURL");
         Uri webpage = Uri.parse(url);
@@ -132,6 +136,8 @@ public class BookDetailsActivity extends AppCompatActivity {
         Log.wtf("openProductPage", "Opening product page");
         startActivity(intent);
     }
+
+    //logic for looking at the change in rank compared to previous week
     public String getRankDelta(int rank) {
         int D1 = getIntent().getIntExtra("ranklastweek", 0);
         int D2 = Math.abs((D1 - rank));
@@ -151,6 +157,7 @@ public class BookDetailsActivity extends AppCompatActivity {
         } else return getString(R.string.nochg) + " first week on list";
     }
 
+    //logic for adding color to the text for the change in rank
     public int getColor(int rank, int weeksOnList){
         int color, alpha = 150;
         int rankLastWeek = getIntent().getIntExtra("ranklastweek", 0);
@@ -171,7 +178,7 @@ public class BookDetailsActivity extends AppCompatActivity {
         return color;
     }
 
-
+    //changing book titles, which were originally ALL CAPS to Title Case for better readability
     public String toTitleCase(String s){
         StringBuilder word = new StringBuilder();
         for(String str : s.toLowerCase().split(" ")){
@@ -181,7 +188,7 @@ public class BookDetailsActivity extends AppCompatActivity {
         return word.toString();
     }
 
-
+    //makes api call for the book image to show on the details activity
     public String makeServiceCall(String reqUrl) {
         String response = null;
         try {
@@ -226,7 +233,8 @@ public class BookDetailsActivity extends AppCompatActivity {
         return sb.toString();
     }
 
-
+    // downloading book image in the background to keep the application responsive and
+    // efficiently communicate between main thread and background thread
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
